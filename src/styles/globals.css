@@ -1,0 +1,233 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Alumni+Sans+Inline+One:ital@0;1&family=Cairo:wght@200;300;400;500;600;700;800;900;1000&display=swap");
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  font-family: "Almarai", sans-serif;
+  font-family: "Alumni Sans Inline One", sans-serif;
+  font-family: "Cairo", sans-serif;
+}
+
+p {
+  font-size: 20px;
+  color: white;
+  font-weight: 600;
+  color: rgb(72, 68, 68);
+}
+
+li {
+  margin-top: 15px;
+  font-size: 17px;
+  font-weight: bold;
+  color: black;
+}
+h3 {
+  color: rgb(72, 68, 68);
+}
+
+h6 {
+  color: rgb(72, 68, 68);
+}
+a {
+  text-decoration: none !important;
+}
+
+h1 {
+  font-weight: 600;
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 25px;
+  font-weight: bold;
+}
+/*btn style*/
+
+.btn {
+  size: 1rem;
+  background-color: #0079d9;
+  padding: 0.5rem 1rem;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  border-radius: 4px;
+  transition: all 0.3s;
+  margin: 5px;
+  height: 50px;
+}
+.btn-smal {
+  size: 0.75rem;
+}
+
+.btn-large {
+  size: 1.25rem;
+  padding: 0.75rem 1.25rem;
+}
+
+.btn:hover {
+  background-color: #3da3f6;
+}
+.btn:active {
+  background-color: #024d8b;
+}
+
+.btn-success {
+  background-color: rgb(80, 221, 80);
+}
+.btn-success:hover {
+  background-color: rgb(112, 243, 112);
+}
+.btn-success:active {
+  background-color: rgb(3, 92, 3);
+}
+
+.btn-error {
+  background-color: rgb(230, 28, 28);
+}
+.btn-error:hover {
+  background-color: rgb(226, 123, 130);
+}
+.btn-error:active {
+  background-color: rgb(56, 1, 1);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-icon {
+  padding: 0;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center !important;
+  align-items: center;
+}
+/* ==button storey style==*/
+
+@media screen and (max-width: 450px) {
+  form {
+    width: 90% !important;
+  }
+  .section-content {
+    width: 90% !important;
+    margin: auto !important;
+  }
+  .section-content p {
+    width: 95% !important;
+    margin: auto !important;
+  }
+}
+
+.header {
+  position: relative;
+  text-align: center;
+  background: linear-gradient(
+    60deg,
+    rgba(84, 58, 183, 1) 0%,
+    rgba(0, 172, 193, 1) 100%
+  );
+  color: white;
+}
+.logo {
+  width: 50px;
+  fill: white;
+  padding-right: 15px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.inner-header {
+  height: 65vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.flex {
+  /*Flexbox for containers*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.waves {
+  position: relative;
+  width: 100%;
+  height: 15vh;
+  margin-bottom: -7px; /*Fix for safari gap*/
+  min-height: 100px;
+  max-height: 150px;
+}
+
+.content {
+  position: relative;
+  height: 20vh;
+  text-align: center;
+  background-color: white;
+}
+
+/* Animation */
+
+.parallax > use {
+  animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+}
+.parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+}
+.parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+}
+.parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+.parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+}
+@keyframes move-forever {
+  0% {
+    transform: translate3d(-90px, 0, 0);
+  }
+  100% {
+    transform: translate3d(85px, 0, 0);
+  }
+}
+/*Shrinking for mobile*/
+@media (max-width: 768px) {
+  .waves {
+    height: 40px;
+    min-height: 40px;
+  }
+  .content {
+    height: 30vh;
+  }
+  h1 {
+    font-size: 24px;
+  }
+}
+
+/* styles.css */
