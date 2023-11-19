@@ -18,6 +18,7 @@ export const generateButtonStyle = ({
         default:
           "";
       }
+      break;
     default:
       if (danger) return "!bg-[#ff3f2d] !border-[#ff3f2d]";
       switch (variant) {

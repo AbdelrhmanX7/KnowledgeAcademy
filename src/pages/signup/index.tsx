@@ -22,7 +22,7 @@ export default function SignUp() {
 
   const { mutateAsync: signupFn, isPending } = useSignup();
 
-  const [_, setUserData] = useLocalStorage("user", {});
+  const [, setUserData] = useLocalStorage("user", {});
 
   return (
     <div className="flex justify-center items-center">

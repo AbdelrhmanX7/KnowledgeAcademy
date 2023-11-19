@@ -19,7 +19,7 @@ export default function Login() {
     email: "",
     password: "",
   });
-  const [_, setUserData] = useLocalStorage("user", {});
+  const [, setUserData] = useLocalStorage("user", {});
   const { mutateAsync: loginFn, isPending } = useLogin();
   const { email, password } = formState;
   return (
