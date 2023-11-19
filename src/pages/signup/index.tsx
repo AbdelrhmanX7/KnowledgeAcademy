@@ -2,21 +2,16 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@/UI/Button/Button";
 import Link from "next/link";
-import LockIcon from "@mui/icons-material/Lock";
-import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
-import PhoneIcon from "@mui/icons-material/Phone";
-import PersonIcon from "@mui/icons-material/Person";
-import MenuItem from "@mui/material/MenuItem";
-
-import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useSignup } from "@/Services/Hooks";
 import toast from "react-hot-toast";
 import { setCookie } from "cookies-next";
 import { useLocalStorage } from "usehooks-ts";
+import { useRouter } from "next/router";
 
 interface SignUpProps {}
 
 const SignUp: React.FC<SignUpProps> = () => {
+  const router = useRouter();
   const [formState, setFormState] = useState({
     username: "",
     email: "",
@@ -98,6 +93,7 @@ const SignUp: React.FC<SignUpProps> = () => {
                 setCookie("token", res?.token);
                 setUserData(res?.user);
                 toast.success("تم تسجيل الدخول بنجاح");
+                router.push("/");
               } catch (error: any) {
                 toast.error(JSON.stringify(error?.response?.data));
               }

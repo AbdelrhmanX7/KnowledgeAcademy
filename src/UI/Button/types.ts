@@ -1,9 +1,14 @@
-import { ButtonHTMLAttributes } from "react";
-
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  buttonType?: "primary" | "success" | "error";
-  size?: "small" | "normal" | "large";
-  icone?: boolean;
-  block?: boolean;
-  children: React.ReactNode;
+export interface ButtonProps {
+  label?: string;
+  variant?: "primary" | "secondary" | "tertiary";
+  emphasis?: "high" | "medium";
+  danger?: boolean;
+  icon?: React.ReactNode;
 }
+
+export type ButtonPropsType = ButtonProps &
+  React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    isLoading?: boolean;
+  };
+
+export type GenerateButtonStyleType = Omit<ButtonProps, "label">;

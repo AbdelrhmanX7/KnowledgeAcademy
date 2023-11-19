@@ -6,8 +6,10 @@ import { useLogin } from "@/Services/Hooks";
 import { useLocalStorage } from "usehooks-ts";
 import { setCookie } from "cookies-next";
 import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 
 export default function Login() {
+  const router = useRouter();
   const [formState, setFormState] = useState<{
     email: string;
     password: string;
@@ -52,6 +54,7 @@ export default function Login() {
               setCookie("token", res?.token);
               setUserData(res?.user);
               toast.success("تم تسجيل الدخول بنجاح");
+              router.push("/");
             } catch (error: any) {
               toast.error(error?.response?.data);
             }

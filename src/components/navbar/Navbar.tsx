@@ -5,12 +5,13 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
 import { Button } from "../../UI/Button";
-import { useReadLocalStorage } from "usehooks-ts";
+import { useLocalStorage, useReadLocalStorage } from "usehooks-ts";
+import { setCookie } from "cookies-next";
 
 const Navbar = () => {
-  const user = useReadLocalStorage<any>("user");
+  const [user, setUser] = useLocalStorage<any>("user", {});
   const [userData, setUserData] = useState<any>({});
-  useEffect(() => setUserData(user), []);
+  useEffect(() => setUserData(user), [user]);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" style={{ backgroundColor: "white" }}>
@@ -23,9 +24,19 @@ const Navbar = () => {
           >
             <Link href="/">Knowledge Academy</Link>
           </Typography>
-          <>
+          <div className="flex gap-4">
             {userData?.username ? (
-              <p>Welcome: {userData?.username}</p>
+              <>
+                <p>Welcome: {userData?.username}</p>
+                <Button
+                  onClick={() => {
+                    setUser({});
+                    setCookie("token", "");
+                  }}
+                >
+                  Logout
+                </Button>
+              </>
             ) : (
               <>
                 <Link href="/login">
@@ -36,7 +47,7 @@ const Navbar = () => {
                 </Link>
               </>
             )}
-          </>
+          </div>
         </Toolbar>
       </AppBar>
     </Box>
