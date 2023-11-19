@@ -1,14 +1,7 @@
-import React, { ButtonHTMLAttributes, ReactNode } from "react";
+import React from "react";
+import { ButtonProps } from "./types";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  buttonType?: "primary" | "success" | "error";
-  size?: "small" | "normal" | "large";
-  icone?: boolean;
-  block?: boolean;
-  children: ReactNode;
-}
-
-const Button = ({
+export const Button = ({
   children,
   buttonType = "primary",
   size = "normal",
