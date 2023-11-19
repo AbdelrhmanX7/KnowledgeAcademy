@@ -8,9 +8,7 @@ import { setCookie } from "cookies-next";
 import { useLocalStorage } from "usehooks-ts";
 import { useRouter } from "next/router";
 
-interface SignUpProps {}
-
-const SignUp: React.FC<SignUpProps> = () => {
+export default function SignUp() {
   const router = useRouter();
   const [formState, setFormState] = useState({
     username: "",
@@ -22,7 +20,7 @@ const SignUp: React.FC<SignUpProps> = () => {
 
   const { username, email, phone, password, passwordConfirmation } = formState;
 
-  const { mutateAsync: signupFn } = useSignup();
+  const { mutateAsync: signupFn, isPending } = useSignup();
 
   const [_, setUserData] = useLocalStorage("user", {});
 
@@ -87,6 +85,14 @@ const SignUp: React.FC<SignUpProps> = () => {
         />
         <div className="flex justify-center ">
           <Button
+            isLoading={isPending}
+            disabled={
+              !username ||
+              !email ||
+              !phone ||
+              !password ||
+              !passwordConfirmation
+            }
             onClick={async () => {
               try {
                 const res = await signupFn(formState);
@@ -98,9 +104,8 @@ const SignUp: React.FC<SignUpProps> = () => {
                 toast.error(JSON.stringify(error?.response?.data));
               }
             }}
-          >
-            ! انشاء الحساب{" "}
-          </Button>
+            label="انشاء حساب جديد"
+          />
         </div>
         <div className="flex m-5" style={{ direction: "rtl" }}>
           <p className="m-1 text-[#00000099] font-normal">
@@ -117,6 +122,4 @@ const SignUp: React.FC<SignUpProps> = () => {
       </div>
     </div>
   );
-};
-
-export default SignUp;
+}

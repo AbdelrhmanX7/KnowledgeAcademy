@@ -8,17 +8,19 @@ import { setCookie } from "cookies-next";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 
+type LoginFormType = {
+  email: string;
+  password: string;
+};
+
 export default function Login() {
   const router = useRouter();
-  const [formState, setFormState] = useState<{
-    email: string;
-    password: string;
-  }>({
+  const [formState, setFormState] = useState<LoginFormType>({
     email: "",
     password: "",
   });
   const [_, setUserData] = useLocalStorage("user", {});
-  const { mutateAsync: loginFn } = useLogin();
+  const { mutateAsync: loginFn, isPending } = useLogin();
   const { email, password } = formState;
   return (
     <div className="flex justify-center items-center h-screen">
@@ -48,6 +50,8 @@ export default function Login() {
           variant="outlined"
         />
         <Button
+          isLoading={isPending}
+          disabled={!email || !password}
           onClick={async () => {
             try {
               const res = await loginFn(formState);
@@ -59,10 +63,8 @@ export default function Login() {
               toast.error(error?.response?.data);
             }
           }}
-        >
-          {" "}
-          تسجيل الدخول{" "}
-        </Button>
+          label="تسجيل الدخول"
+        />
         <Link className="text-lg font-medium underline" href="/signup">
           ! انشاء حساب جديد
         </Link>

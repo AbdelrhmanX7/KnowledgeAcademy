@@ -5,7 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
 import { Button } from "../../UI/Button";
-import { useLocalStorage, useReadLocalStorage } from "usehooks-ts";
+import { useLocalStorage } from "usehooks-ts";
 import { setCookie } from "cookies-next";
 
 const Navbar = () => {
@@ -27,23 +27,25 @@ const Navbar = () => {
           <div className="flex gap-4">
             {userData?.username ? (
               <>
-                <p>Welcome: {userData?.username}</p>
+                <p className="text-black text-xl font-medium">
+                  Welcome: {userData?.username}
+                </p>
                 <Button
                   onClick={() => {
                     setUser({});
                     setCookie("token", "");
                   }}
-                >
-                  Logout
-                </Button>
+                  label="Logout"
+                  danger
+                />
               </>
             ) : (
               <>
                 <Link href="/login">
-                  <Button>Login</Button>
+                  <Button label="Login" />
                 </Link>
                 <Link href="/signup">
-                  <Button>Sign up</Button>
+                  <Button variant="tertiary" label="Sign up" />
                 </Link>
               </>
             )}
