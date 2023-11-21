@@ -12,6 +12,7 @@ const Navbar = () => {
   const [user, setUser] = useLocalStorage<any>("user", {});
   const [userData, setUserData] = useState<any>({});
   useEffect(() => setUserData(user), [user]);
+  console.log(userData);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" style={{ backgroundColor: "white" }}>
@@ -25,10 +26,11 @@ const Navbar = () => {
             <Link href="/">Knowledge Academy</Link>
           </Typography>
           <div className="flex gap-4">
-            {userData?.username ? (
+            {userData?.username || userData?.email ? (
               <>
                 <p className="text-black text-xl font-medium">
-                  Welcome: {userData?.username}
+                  Welcome:{" "}
+                  {userData?.username ? userData?.username : userData?.email}
                 </p>
                 <Button
                   onClick={() => {
