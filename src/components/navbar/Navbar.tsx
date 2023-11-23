@@ -23,7 +23,7 @@ const Navbar = () => {
             component="div"
             sx={{ flexGrow: 1 }}
           >
-            <Link href="/">Knowledge Academy</Link>
+            <Link href="/">Knowledge Academy 2</Link>
           </Typography>
           <div className="flex gap-4">
             {userData?.username || userData?.email ? (
