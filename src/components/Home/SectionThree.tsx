@@ -21,7 +21,7 @@ const SectionThree: React.FC = () => {
               </h3>
 
               <div className="text-right" style={{ direction: "rtl" }}>
-                <p className="mb-5 w-[500px]">
+                <p className="mb-5 w-[500px] text-lg">
                   توفر المنصة للطلاب تجربة فريدة وسهلة وآمنة للتعلم عن بعد، حيث
                   يمكن للطالب اختيار مدرس المادة من بين مجموعة من أفضل المدرسين
                   الأكفاء في جميع المواد الدراسية.

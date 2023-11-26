@@ -25,7 +25,7 @@ export const generateButtonStyle = ({
         case "primary":
           return "bg-[#1E232C] border-[#d1d5db]";
         case "secondary":
-          return "bg-[#4ac7cf] border-[#4ac7cf]";
+          return "bg-blue-500 border-blue-500";
         case "tertiary":
           return "bg-white border-[#d1d5db] !text-[#1E232C]";
         default:
