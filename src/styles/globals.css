@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Alumni+Sans+Inline+One:ital@0;1&family=Cairo:wght@200;300;400;500;600;700;800;900;1000&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap');
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -22,17 +22,14 @@
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: radial-gradient(farthest-side, #766df4 94%, #0000) top/4px 4px
-      no-repeat,
+  background: radial-gradient(farthest-side, #766df4 94%, #0000) top/4px 4px no-repeat,
     conic-gradient(#0000 30%, #766df4);
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 4px), #000 0);
   animation: s3 1s infinite linear;
 }
 
 .custom-loader.white {
-  background: radial-gradient(farthest-side, white 94%, #0000) top/4px 4px
-      no-repeat,
-    conic-gradient(#0000 30%, white);
+  background: radial-gradient(farthest-side, white 94%, #0000) top/4px 4px no-repeat, conic-gradient(#0000 30%, white);
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 4px), #000 0);
 }
 
@@ -43,13 +40,13 @@
 }
 
 * {
-  font-family: var(--font-urbanist);
+  font-family: 'El Messiri', sans-serif;
 }
 
 body {
-  font-family: "Almarai", sans-serif;
-  font-family: "Alumni Sans Inline One", sans-serif;
-  font-family: "Cairo", sans-serif;
+  font-family: 'Almarai', sans-serif;
+  font-family: 'Alumni Sans Inline One', sans-serif;
+  font-family: 'Cairo', sans-serif;
 }
 
 li {
@@ -96,11 +93,7 @@ h3 {
 .header {
   position: relative;
   text-align: center;
-  background: linear-gradient(
-    60deg,
-    rgba(84, 58, 183, 1) 0%,
-    rgba(0, 172, 193, 1) 100%
-  );
+  background: linear-gradient(60deg, rgba(84, 58, 183, 1) 0%, rgba(0, 172, 193, 1) 100%);
   color: white;
 }
 .logo {
@@ -116,14 +109,6 @@ h3 {
   width: 100%;
   margin: 0;
   padding: 0;
-}
-
-.flex {
-  /*Flexbox for containers*/
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
 .waves {
