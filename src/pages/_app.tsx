@@ -6,13 +6,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import axios from "axios";
 import { getCookie } from "cookies-next";
 import { Toaster } from "react-hot-toast";
-import UserProvider from "@/context/Context";
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
   const token = getCookie("token");
   axios.defaults.headers.common.Authorization = token;
-
   return (
     <QueryClientProvider client={queryClient}>
       <Toaster
@@ -27,13 +25,9 @@ export default function App({ Component, pageProps }: AppProps) {
         }}
         position="bottom-right"
       />
-      <UserProvider>
-        <Navbar />
-
-        <Component {...pageProps} />
-
-        <Footer />
-      </UserProvider>
+      <Navbar />
+      <Component {...pageProps} />
+      <Footer />
     </QueryClientProvider>
   );
 }
