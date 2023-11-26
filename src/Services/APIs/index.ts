@@ -1,4 +1,5 @@
-export const API = "https://luxuriant-drawer-production.up.railway.app";
+export const API = process.env.API;
+
 export * from "./Authentication";
 //
 //export const API = "https://luxuriant-drawer-production.up.railway.app"; // development API
