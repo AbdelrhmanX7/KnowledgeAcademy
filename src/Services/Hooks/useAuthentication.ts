@@ -3,7 +3,7 @@ import { createStudentAccount, login, signup } from '../APIs';
 
 export const useLogin = () => {
   return useMutation({
-    mutationFn: (body: { email: string; password: string }) => login(body),
+    mutationFn: (body: { email: string; password: string; isTeacher: boolean }) => login(body),
   });
 };
 

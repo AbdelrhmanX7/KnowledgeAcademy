@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { API } from '.';
 
-export const login = (body: { email: string; password: string }) => {
+export const login = (body: { email: string; password: string; isTeacher: boolean }) => {
   return axios.post(`${API}/login`, body).then((res) => res.data);
 };
 
