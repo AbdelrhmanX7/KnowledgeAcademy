@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import TextField from '@mui/material/TextField';
 import Link from 'next/link';
 import { useLogin } from '@/Services/Hooks';
 import { useLocalStorage } from 'usehooks-ts';
 import { setCookie } from 'cookies-next';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
-import { Button } from '@/UI';
+import { Button, EmailInput, PasswordInput } from '@/UI';
+import { Checkbox } from 'antd';
 
 type LoginFormType = {
   email: string;
   password: string;
+  isTeacher: boolean;
 };
 
 export default function Login() {
@@ -18,33 +19,30 @@ export default function Login() {
   const [formState, setFormState] = useState<LoginFormType>({
     email: '',
     password: '',
+    isTeacher: false,
   });
   const [, setUserData] = useLocalStorage('user', {});
   const { mutateAsync: loginFn, isPending } = useLogin();
   const { email, password } = formState;
   return (
-    <div className='flex justify-center items-center h-screen'>
+    <div dir='rtl' className='flex justify-center items-center h-screen'>
       <div className='w-[400px] p-6 flex flex-col gap-7 mt-10 border rounded-lg shadow-md'>
         <div className='flex justify-center'>
           <h1>تسجيل دخول</h1>
         </div>
-        <TextField
+        <EmailInput
+          label='بريد الاكتروني'
           value={email}
           onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-          className='w-full mx-auto'
-          id='outlined-basic'
-          label={<div>Email</div>}
-          variant='outlined'
         />
-        <TextField
+        <PasswordInput
+          label='كلمة مرور'
           value={password}
           onChange={(e) => setFormState({ ...formState, password: e.target.value })}
-          className='w-full mx-auto'
-          id='outlined-basic'
-          label={<div>Password</div>}
-          type='password'
-          variant='outlined'
         />
+        <Checkbox onChange={(e) => setFormState({ ...formState, isTeacher: e.target.checked })} className='text-lg'>
+          تسجيل دخول كمدرس
+        </Checkbox>
         <Button
           isLoading={isPending}
           disabled={!email || !password}
@@ -63,8 +61,8 @@ export default function Login() {
         >
           تسجيل الدخول
         </Button>
-        <Link className='text-lg font-medium underline' href='/signup'>
-          ! انشاء حساب جديد
+        <Link className='text-lg font-medium underline w-fit' href='/signup'>
+          انشاء حساب جديد !
         </Link>
       </div>
     </div>
