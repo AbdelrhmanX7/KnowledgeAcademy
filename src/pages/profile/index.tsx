@@ -4,11 +4,20 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PhoneIcon from '@mui/icons-material/Phone';
 import AlternateEmailTwoToneIcon from '@mui/icons-material/AlternateEmailTwoTone';
 import { useEffect, useState } from 'react';
+import { useAddBalance, useGetEWallet } from '@/Services/Hooks';
+import { Button, Input } from '@/UI';
+import toast from 'react-hot-toast';
+import { GetInvalidateQueries } from '@/Services/InvalidateQueries';
+
 
 const Profile = () => {
   const localStorageUser = useReadLocalStorage<any>('user');
   const [user, setUser] = useState<any>();
   useEffect(() => setUser(localStorageUser), []);
+  const { data, isLoading } = useGetEWallet();
+  const [rechargeCode, setRechargeCode] = useState<any>('');
+  const { mutateAsync: addBalanceFn } = useAddBalance();
+  const { invalidateEWalletQuery } = GetInvalidateQueries();
   return (
     <div className='mt-[50px]'>
       <Container maxWidth='md' className='gap-7 border rounded-lg shadow-md p-6 mt-[120px] mb-[50px] w-[90%]'>
@@ -31,6 +40,39 @@ const Profile = () => {
               <AlternateEmailTwoToneIcon className='m-2 text-blue-600' />
             </h3>
             <hr />
+            <div>
+              <h3>الرصيد</h3>
+              <h3>{isLoading ? 'Loading...' : `جنية ${data?.eWallet?.balance}`}</h3>
+              <div className='flex flex-col gap-6'>
+                <Input
+                  value={rechargeCode}
+                  onChange={(e) => setRechargeCode(e.target.value)}
+                  label='كود الشحن'
+                  placeholder='اكتب كود شحن'
+                  showCount
+                  maxLength={16}
+                  minLength={16}
+                />
+                <Button
+                  onClick={async () => {
+                    try {
+                      await addBalanceFn({ rechargeCode });
+                      toast.success('تم الشحن بنجاح');
+                      invalidateEWalletQuery();
+                    } catch (error: any) {
+                      toast.error(error?.response?.data?.message);
+                      invalidateEWalletQuery();
+                    }
+                  }}
+                  disabled={rechargeCode?.length !== 16}
+                  className='w-fit'
+                >
+                  ادفع
+                </Button>
+              </div>
+              <h3>Transactions</h3>
+              <p>{JSON.stringify(data?.eWallet?.transactions)}</p>
+            </div>
           </div>
         </div>
       </Container>
