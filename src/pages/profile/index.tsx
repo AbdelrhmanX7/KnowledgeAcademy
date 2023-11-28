@@ -9,6 +9,7 @@ import { Button, Input } from '@/UI';
 import toast from 'react-hot-toast';
 import { GetInvalidateQueries } from '@/Services/InvalidateQueries';
 
+
 const Profile = () => {
   const localStorageUser = useReadLocalStorage<any>('user');
   const [user, setUser] = useState<any>();

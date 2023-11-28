@@ -25,8 +25,6 @@ export async function middleware(req: NextRequest) {
   const encodedText = new TextEncoder().encode(process?.env?.JWT_SECRET ?? 'DEV');
   const filtered = UNPROTECTED_PATHS.filter((path) => pathname.startsWith(path));
   const accessToken = req.cookies?.get('token')?.value ?? '';
-  // console.log(accessToken);
-  // console.log(req.headers.get('cookie'));
   try {
     await jwtVerify(accessToken, encodedText);
 
