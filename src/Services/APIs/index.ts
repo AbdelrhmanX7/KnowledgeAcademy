@@ -1,4 +1,4 @@
-export const API = 'http://192.168.1.2:4000';
+export const API = 'https://luxuriant-drawer-production.up.railway.app';
 
 export * from './Authentication';
 export * from './EWallet';

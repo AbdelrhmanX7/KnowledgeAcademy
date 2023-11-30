@@ -5,6 +5,8 @@ interface UserContextValue {
   isLoggedIn: boolean;
   handleOpen: () => void;
   handleClose: () => void;
+  handleClickOpen: () => void;
+  openDialog: boolean;
 }
 
 const UserContext = createContext<UserContextValue | undefined>(undefined);
@@ -22,20 +24,19 @@ interface UserProviderProps {
 }
 
 const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-  const [login, setLogin] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
 
-  const handleOpen = useCallback(() => {
-    setLogin(true);
-  }, []);
+  const handleClickOpen = () => {
+    setOpenDialog(true);
+  };
 
-  const handleClose = useCallback(() => {
-    setLogin(false);
-  }, []);
-
+  const handleClose = () => {
+    setOpenDialog(false);
+  };
   const contextValue: UserContextValue = {
-    username: '', // Initialize with default value or fetch from state/props
-    isLoggedIn: login,
-    handleOpen,
+    openDialog,
+    setOpenDialog,
+    handleClickOpen,
     handleClose,
   };
 
