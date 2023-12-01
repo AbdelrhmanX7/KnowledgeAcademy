@@ -1,17 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useReadLocalStorage } from 'usehooks-ts';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import WalletIcon from '@mui/icons-material/Wallet';
-import { useAddBalance, useGetEWallet } from '@/Services/Hooks';
+import { useAddBalance } from '@/Services/Hooks';
 import { Button, Input } from '@/UI';
 import toast from 'react-hot-toast';
 import { GetInvalidateQueries } from '@/Services/InvalidateQueries';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
-import { useUserContext } from '@/context/Context';
 import CircularProgress from '@mui/material/CircularProgress';
-const WalletDialog: React.FC = () => {
+
+interface WalletDialogProps {
+  handleCloseDialog: () => void;
+}
+
+const WalletDialog: React.FC<WalletDialogProps> = ({ handleCloseDialog }) => {
   const localStorageUser = useReadLocalStorage<any>('user');
   const [user, setUser] = useState<any>();
   useEffect(() => setUser(localStorageUser), []);
@@ -19,7 +23,6 @@ const WalletDialog: React.FC = () => {
   const [rechargeCode, setRechargeCode] = useState<string>('');
   const { mutateAsync: addBalanceFn } = useAddBalance();
   const { invalidateEWalletQuery } = GetInvalidateQueries();
-  const { handleClose } = useUserContext();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -56,13 +59,13 @@ const WalletDialog: React.FC = () => {
 
               invalidateEWalletQuery();
             }
-            handleClose();
-            setRechargeCode('');
 
+            setRechargeCode('');
+            handleCloseDialog();
             setIsLoading(false); // توقف عملية لودينج
           }}
           disabled={rechargeCode.length !== 16 || isLoading}
-          className='w-fit'
+          className='w-[220px]'
         >
           {isLoading ? (
             <div className='loading-indicator'>

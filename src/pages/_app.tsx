@@ -6,7 +6,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
 import { Toaster } from 'react-hot-toast';
-import UserProvider from '@/context/Context';
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
@@ -27,13 +26,12 @@ export default function App({ Component, pageProps }: AppProps) {
         }}
         position='bottom-right'
       />
-      <UserProvider>
-        <Navbar />
 
-        <Component {...pageProps} />
+      <Navbar />
 
-        <Footer />
-      </UserProvider>
+      <Component {...pageProps} />
+
+      <Footer />
     </QueryClientProvider>
   );
 }

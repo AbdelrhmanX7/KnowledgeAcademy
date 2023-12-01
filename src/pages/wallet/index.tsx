@@ -6,7 +6,7 @@ import { Button } from '@/UI';
 import { useGetEWallet } from '@/Services/Hooks';
 import WalletDialog from './WalletDialog';
 import Modil from '@/UI/dialog';
-import { useUserContext } from '@/context/Context';
+
 import CircularProgress from '@mui/material/CircularProgress';
 const Wallet = () => {
   const localStorageUser = useReadLocalStorage<any>('user');
@@ -14,8 +14,15 @@ const Wallet = () => {
   useEffect(() => setUser(localStorageUser), [localStorageUser]);
 
   const { data, isLoading } = useGetEWallet();
-  const { handleClickOpen } = useUserContext();
+  const [openDialog, setOpenDialog] = useState(false);
 
+  const handleClickOpen = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
   return (
     <div className='mt-[150px] mb-[150px]'>
       <Container maxWidth='md' className='gap-7 border rounded-lg shadow-md p-6 mt-[120px] mb-[50px] w-[90%]'>
@@ -35,8 +42,8 @@ const Wallet = () => {
               {' '}
               ! اشحن محفظتك الان{' '}
             </Button>
-            <Modil>
-              <WalletDialog />
+            <Modil openDialog={openDialog} handleCloseDialog={handleCloseDialog}>
+              <WalletDialog handleCloseDialog={handleCloseDialog} />
             </Modil>
           </div>
           <h3 className='text-center mt-5'>! سجل عمليات الدفع </h3>

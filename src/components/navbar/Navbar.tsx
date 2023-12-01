@@ -10,23 +10,21 @@ import HomeIcon from '@mui/icons-material/Home';
 import { setCookie } from 'cookies-next';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAddBalance, useGetEWallet } from '@/Services/Hooks';
-import { useUserContext } from '@/context/Context';
+
 import WalletOutlinedIcon from '@mui/icons-material/WalletOutlined';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import WalletDialog from '@/pages/wallet/WalletDialog';
 import { useOnClickOutside } from 'usehooks-ts';
-import { Modil } from '@/UI';
+import Modil from '@/UI/dialog';
 import { useRouter } from 'next/router';
-interface NavbarProps {
-  handleClickOpen: boolean;
-}
+interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = () => {
   const [user, setUser] = useLocalStorage<any>('user', {});
   const [userData, setUserData] = useState<any>({});
   const containerRef = useRef<HTMLDivElement>(null);
   const { data, isLoading } = useGetEWallet();
-  const { handleClickOpen } = useUserContext();
+
   const router = useRouter();
 
   useEffect(() => setUserData(user), [user]);
@@ -46,6 +44,17 @@ const Navbar: React.FC<NavbarProps> = () => {
   const handleLinkClick = () => {
     setLogin(false); // عند الضغط على أي لينك داخل الـ div، سيتم إغلاقه
   };
+
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
@@ -93,8 +102,8 @@ const Navbar: React.FC<NavbarProps> = () => {
                       <h6 className='m-1 '>{isLoading ? 'Loading...' : `جنية ${data?.eWallet?.balance}`}</h6>
                     </div>
                     <Button onClick={handleClickOpen}>اشحن !</Button>
-                    <Modil>
-                      <WalletDialog />
+                    <Modil openDialog={openDialog} handleCloseDialog={handleCloseDialog}>
+                      <WalletDialog handleCloseDialog={handleCloseDialog} />
                     </Modil>
                   </div>
                   <Link className='link no-underline inline-flex mt-4' href='/wallet' onClick={handleLinkClick}>
@@ -113,11 +122,12 @@ const Navbar: React.FC<NavbarProps> = () => {
                     onClick={() => {
                       setUser({});
                       setCookie('token', '');
+                      handleLinkClick();
                     }}
                     danger
                     className='w-[100%]'
                   >
-                    تسجيل خروج
+                    cb تسجيل خروج
                   </Button>
                 </Link>
               </div>

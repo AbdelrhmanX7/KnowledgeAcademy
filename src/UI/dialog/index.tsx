@@ -1,31 +1,32 @@
-import { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { useReadLocalStorage } from 'usehooks-ts';
 import Dialog from '@mui/material/Dialog';
-
-import { useUserContext } from '@/context/Context';
-
+import { Button } from '../../UI/Button';
 interface ModilProps {
-  children: any;
+  children: ReactNode;
   openDialog: boolean;
+  handleCloseDialog: () => void;
 }
 
-export const Modil: React.FC<ModilProps> = ({ children }) => {
+const Modil: React.FC<ModilProps> = ({ children, openDialog, handleCloseDialog }) => {
   const localStorageUser = useReadLocalStorage<any>('user');
   const [user, setUser] = useState<any>();
   useEffect(() => setUser(localStorageUser), [localStorageUser]);
-
-  const { openDialog, handleClose } = useUserContext();
 
   return (
     <Dialog
       onMouseDown={(e) => e.stopPropagation()}
       open={openDialog}
-      onClose={handleClose}
+      onClose={handleCloseDialog}
       aria-labelledby='alert-dialog-title'
       aria-describedby='alert-dialog-description'
-      className='text-center'
     >
-      {children}
+      <div style={{ direction: 'rtl' }}>
+        <Button className='m-2 w-10' danger onClick={handleCloseDialog}>
+          x
+        </Button>
+      </div>
+      <div className='text-center'>{children}</div>
     </Dialog>
   );
 };
