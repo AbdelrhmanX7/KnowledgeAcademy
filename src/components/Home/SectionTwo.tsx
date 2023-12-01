@@ -1,14 +1,14 @@
 import React from 'react';
-
+import Image from 'next/image';
 import Container from '@mui/material/Container';
-
+import TeacherImage from '../../../public/teacher-2.png';
 const SectionTwo: React.FC = () => {
   return (
     <div className='section-content mt-10'>
       <Container maxWidth='lg'>
         <div className='flex flex-col md:flex-row items-center ' style={{ justifyContent: 'space-between' }}>
           <div className='mb-6 md:mb-0'>
-            <img src='teacher-2.png' className='w-[400px]' />
+            <Image src={TeacherImage} width={400} height={400} alt='Teacher Image' />
           </div>
 
           <div className='md:ml-10 flex items-center'>

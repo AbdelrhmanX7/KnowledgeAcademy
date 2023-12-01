@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,14 +9,14 @@ import { useLocalStorage } from 'usehooks-ts';
 import HomeIcon from '@mui/icons-material/Home';
 import { setCookie } from 'cookies-next';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { useAddBalance, useGetEWallet } from '@/Services/Hooks';
+import { useGetEWallet } from '@/Services/Hooks';
 
 import WalletOutlinedIcon from '@mui/icons-material/WalletOutlined';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import WalletDialog from '@/pages/wallet/WalletDialog';
 import { useOnClickOutside } from 'usehooks-ts';
 import Modil from '@/UI/dialog';
-import { useRouter } from 'next/router';
+
 interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = () => {
@@ -24,8 +24,6 @@ const Navbar: React.FC<NavbarProps> = () => {
   const [userData, setUserData] = useState<any>({});
   const containerRef = useRef<HTMLDivElement>(null);
   const { data, isLoading } = useGetEWallet();
-
-  const router = useRouter();
 
   useEffect(() => setUserData(user), [user]);
 

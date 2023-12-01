@@ -1,4 +1,4 @@
-import { Button, Input } from '@/UI';
+import { Button } from '@/UI';
 import { ReactNode } from 'react';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 

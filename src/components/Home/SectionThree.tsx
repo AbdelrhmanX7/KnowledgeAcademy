@@ -1,7 +1,7 @@
 import React from 'react';
-
+import Image from 'next/image';
 import Container from '@mui/material/Container';
-
+import BookImage from '../../../public/book.png';
 const SectionThree: React.FC = () => {
   return (
     <div className='section-content mt-10 mb-10'>
@@ -11,7 +11,7 @@ const SectionThree: React.FC = () => {
           style={{ display: 'flex', justifyContent: 'space-between' }}
         >
           <div className='mb-6 md:mb-0'>
-            <img src='book.png' className='w-[400px]' />
+            <Image src={BookImage} width={400} height={400} alt='Teacher Image' />
           </div>
 
           <div className='md:ml-10 flex items-center'>

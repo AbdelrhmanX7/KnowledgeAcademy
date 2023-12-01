@@ -10,7 +10,7 @@ interface ModilProps {
 
 const Modil: React.FC<ModilProps> = ({ children, openDialog, handleCloseDialog }) => {
   const localStorageUser = useReadLocalStorage<any>('user');
-  const [user, setUser] = useState<any>();
+  const [, setUser] = useState<any>();
   useEffect(() => setUser(localStorageUser), [localStorageUser]);
 
   return (
@@ -22,7 +22,7 @@ const Modil: React.FC<ModilProps> = ({ children, openDialog, handleCloseDialog }
       aria-describedby='alert-dialog-description'
     >
       <div style={{ direction: 'rtl' }}>
-        <Button className='m-2 w-10' danger onClick={handleCloseDialog}>
+        <Button className='m-2 w-' danger onClick={handleCloseDialog}>
           x
         </Button>
       </div>

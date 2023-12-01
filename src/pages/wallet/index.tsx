@@ -10,7 +10,7 @@ import Modil from '@/UI/dialog';
 import CircularProgress from '@mui/material/CircularProgress';
 const Wallet = () => {
   const localStorageUser = useReadLocalStorage<any>('user');
-  const [user, setUser] = useState<any>();
+  const [, setUser] = useState<any>();
   useEffect(() => setUser(localStorageUser), [localStorageUser]);
 
   const { data, isLoading } = useGetEWallet();

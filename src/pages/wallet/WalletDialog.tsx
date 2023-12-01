@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useReadLocalStorage } from 'usehooks-ts';
-import Dialog from '@mui/material/Dialog';
+import { useState } from 'react';
+
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import WalletIcon from '@mui/icons-material/Wallet';
@@ -16,10 +15,6 @@ interface WalletDialogProps {
 }
 
 const WalletDialog: React.FC<WalletDialogProps> = ({ handleCloseDialog }) => {
-  const localStorageUser = useReadLocalStorage<any>('user');
-  const [user, setUser] = useState<any>();
-  useEffect(() => setUser(localStorageUser), []);
-
   const [rechargeCode, setRechargeCode] = useState<string>('');
   const { mutateAsync: addBalanceFn } = useAddBalance();
   const { invalidateEWalletQuery } = GetInvalidateQueries();

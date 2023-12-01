@@ -1,12 +1,10 @@
 import Container from '@mui/material/Container';
 import { useReadLocalStorage } from 'usehooks-ts';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import PhoneIcon from '@mui/icons-material/Phone';
+
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 import { useEffect, useState } from 'react';
-import { useAddBalance, useGetEWallet } from '@/Services/Hooks';
-import { Button, Input } from '@/UI';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import AttachEmailOutlinedIcon from '@mui/icons-material/AttachEmailOutlined';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
