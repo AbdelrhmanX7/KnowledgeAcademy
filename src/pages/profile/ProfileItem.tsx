@@ -1,8 +1,8 @@
-import React, { ReactNode, useEffect, useState } from 'react';
-import { useReadLocalStorage } from 'usehooks-ts';
-import Dialog from '@mui/material/Dialog';
-import { Button, EmailInput, Input, PasswordInput, Select, Modal } from '@/UI';
+import React, { useState, useEffect, useRef, ReactNode } from 'react';
+import { Button, Input } from '@/UI';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Cancel';
 interface ProfileItemProps {
   icon: ReactNode;
   title: string;
@@ -10,9 +10,20 @@ interface ProfileItemProps {
 }
 
 const ProfileItem: React.FC<ProfileItemProps> = ({ icon, title, value }) => {
-  const [openEditModal, setOpenEditModal] = useState<boolean>(false);
-  const handleOpenEditModal = () => setOpenEditModal(true);
-  const handleCloseEditModal = () => setOpenEditModal(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string | number | undefined>(value);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (isEditing && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isEditing]);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+    setInputValue(newValue);
+  };
 
   return (
     <>
@@ -21,28 +32,48 @@ const ProfileItem: React.FC<ProfileItemProps> = ({ icon, title, value }) => {
           <h4>
             {icon} {title}
           </h4>
-          <h3 className='font text-base m-2'> {value}</h3>
+          {isEditing ? (
+            <div className='flex items-center'>
+              <Input id='edit-input' value={inputValue} onChange={handleInputChange} className='w-[300px] m-auto' />
+            </div>
+          ) : (
+            <h3 className='font text-base m-2'> {value}</h3>
+          )}
         </div>
         <div>
-          <Button onClick={handleOpenEditModal}>
-            <EditOutlinedIcon />
-          </Button>
+          {isEditing ? (
+            <div>
+              <Button
+                className='m-2'
+                onClick={() => {
+                  setIsEditing(false);
+                }}
+              >
+                <SaveIcon className='' />
+              </Button>
+              <Button
+                danger
+                className=' '
+                onClick={() => {
+                  setIsEditing(false);
+                }}
+              >
+                <CancelIcon />
+              </Button>
+            </div>
+          ) : (
+            <Button
+              onClick={() => {
+                setIsEditing(true);
+
+                setInputValue(value);
+              }}
+            >
+              <EditOutlinedIcon />
+            </Button>
+          )}
         </div>
       </div>
-
-      {/* Edit Modal */}
-      <Modal openDialog={openEditModal} handleCloseDialog={handleCloseEditModal}>
-        <div style={{ direction: 'rtl' }} className='w-[350px] '>
-          <Input id='edit-input' label={title} defaultValue={value} className='w-[300px] m-auto' />
-
-          <Button className='m-3 w-' danger onClick={handleCloseEditModal}>
-            إلغاء
-          </Button>
-          <Button className='m-3 w-' onClick={handleCloseEditModal}>
-            حفظ
-          </Button>
-        </div>
-      </Modal>
     </>
   );
 };

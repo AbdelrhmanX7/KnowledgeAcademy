@@ -17,10 +17,8 @@ interface WalletDialogProps {
 
 const WalletDialog: React.FC<WalletDialogProps> = ({ handleCloseDialog, handleModalContentClick }) => {
   const [rechargeCode, setRechargeCode] = useState<string>('');
-  const { mutateAsync: addBalanceFn } = useAddBalance();
+  const { mutateAsync: addBalanceFn, isPending } = useAddBalance();
   const { invalidateEWalletQuery } = GetInvalidateQueries();
-
-  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <div onClick={handleModalContentClick}>
@@ -44,8 +42,6 @@ const WalletDialog: React.FC<WalletDialogProps> = ({ handleCloseDialog, handleMo
       <DialogActions className='text-center mb-3 flex justify-center'>
         <Button
           onClick={async () => {
-            setIsLoading(true); // ابدأ عملية لودينج
-
             try {
               await addBalanceFn({ rechargeCode });
               toast.success('تم الشحن بنجاح');
@@ -58,12 +54,11 @@ const WalletDialog: React.FC<WalletDialogProps> = ({ handleCloseDialog, handleMo
 
             setRechargeCode('');
             handleCloseDialog();
-            setIsLoading(false); // توقف عملية لودينج
           }}
-          disabled={rechargeCode.length !== 16 || isLoading}
+          disabled={rechargeCode.length !== 16 || isPending}
           className='w-[220px]'
         >
-          {isLoading ? (
+          {isPending ? (
             <div className='loading-indicator'>
               <CircularProgress />
             </div>
