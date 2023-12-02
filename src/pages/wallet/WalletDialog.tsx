@@ -12,9 +12,10 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 interface WalletDialogProps {
   handleCloseDialog: () => void;
+  handleModalContentClick: () => void;
 }
 
-const WalletDialog: React.FC<WalletDialogProps> = ({ handleCloseDialog }) => {
+const WalletDialog: React.FC<WalletDialogProps> = ({ handleCloseDialog, handleModalContentClick }) => {
   const [rechargeCode, setRechargeCode] = useState<string>('');
   const { mutateAsync: addBalanceFn } = useAddBalance();
   const { invalidateEWalletQuery } = GetInvalidateQueries();
@@ -22,7 +23,7 @@ const WalletDialog: React.FC<WalletDialogProps> = ({ handleCloseDialog }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   return (
-    <>
+    <div onClick={handleModalContentClick}>
       <h3 id='alert-dialog-title' className='m-2' style={{ direction: 'rtl' }}>
         <AccountBalanceWalletOutlinedIcon className=' text-blue-600 m-2' />
         شحن المحفظة !
@@ -74,7 +75,7 @@ const WalletDialog: React.FC<WalletDialogProps> = ({ handleCloseDialog }) => {
           )}
         </Button>
       </DialogActions>
-    </>
+    </div>
   );
 };
 

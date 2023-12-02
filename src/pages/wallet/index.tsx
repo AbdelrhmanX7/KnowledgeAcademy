@@ -5,7 +5,7 @@ import { useReadLocalStorage } from 'usehooks-ts';
 import { Button } from '@/UI';
 import { useGetEWallet } from '@/Services/Hooks';
 import WalletDialog from './WalletDialog';
-import Modil from '@/UI/dialog';
+import { Modal } from '@/UI';
 
 import CircularProgress from '@mui/material/CircularProgress';
 const Wallet = () => {
@@ -42,9 +42,9 @@ const Wallet = () => {
               {' '}
               ! اشحن محفظتك الان{' '}
             </Button>
-            <Modil openDialog={openDialog} handleCloseDialog={handleCloseDialog}>
+            <Modal openDialog={openDialog} handleCloseDialog={handleCloseDialog}>
               <WalletDialog handleCloseDialog={handleCloseDialog} />
-            </Modil>
+            </Modal>
           </div>
           <h3 className='text-center mt-5'>! سجل عمليات الدفع </h3>
           <div className='w-full'>
