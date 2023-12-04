@@ -4,3 +4,4 @@ export * from './Input';
 export * from './SelectableCards';
 export * from './dialog';
 export * from './menu';
+export * from './card';
