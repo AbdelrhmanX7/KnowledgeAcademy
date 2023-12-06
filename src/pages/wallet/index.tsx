@@ -1,28 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Container from '@mui/material/Container';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
-import { useReadLocalStorage } from 'usehooks-ts';
 import { Button } from '@/UI';
 import { useGetEWallet } from '@/Services/Hooks';
 import WalletDialog from './WalletDialog';
 import { Modal } from '@/UI';
-
 import CircularProgress from '@mui/material/CircularProgress';
-const Wallet = () => {
-  const localStorageUser = useReadLocalStorage<any>('user');
-  const [, setUser] = useState<any>();
-  useEffect(() => setUser(localStorageUser), [localStorageUser]);
 
+const Wallet = () => {
   const { data, isLoading } = useGetEWallet();
   const [openDialog, setOpenDialog] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpenDialog(true);
-  };
-
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-  };
   return (
     <div className='mt-[150px] mb-[150px]'>
       <Container maxWidth='md' className='gap-7 border rounded-lg shadow-md p-6 mt-[120px] mb-[50px] w-[90%]'>
@@ -38,12 +26,12 @@ const Wallet = () => {
             <h3>{isLoading ? <CircularProgress /> : `جنية ${data?.eWallet?.balance}`}</h3>
           </div>
           <div style={{ textAlign: 'center' }} className='m-3'>
-            <Button onClick={handleClickOpen} danger>
+            <Button onClick={() => setOpenDialog(true)} danger>
               {' '}
               ! اشحن محفظتك الان{' '}
             </Button>
-            <Modal openDialog={openDialog} handleCloseDialog={handleCloseDialog}>
-              <WalletDialog handleCloseDialog={handleCloseDialog} />
+            <Modal open={openDialog} onClose={() => setOpenDialog(false)}>
+              <WalletDialog onClose={() => setOpenDialog(false)} />
             </Modal>
           </div>
           <h3 className='text-center mt-5'>! سجل عمليات الدفع </h3>

@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Button as ButtomComp } from 'antd';
 import { ButtonComponentProps } from './type';
 import { classNames } from '@/utils';
 
-export const Button = ({ type = 'primary', isLoading, children, className, ...props }: ButtonComponentProps) => {
+export const Button = forwardRef<HTMLButtonElement, ButtonComponentProps>(function Button(
+  { type = 'primary', isLoading, children, className, ...props },
+  ref,
+) {
   return (
     <ButtomComp
-      className={classNames('h-fit font-medium text-lg py-2 px-3', type === 'primary' && 'bg-[#1677ff]', className)}
+      ref={ref}
+      className={classNames('h-fit font-medium text-lg p-2', type === 'primary' && 'bg-[#1677ff]', className)}
       loading={isLoading}
       type={type}
       {...props}
     >
-      {children}
+      {isLoading ? <></> : children}
     </ButtomComp>
   );
-};
+});
 
 export default Button;

@@ -1,57 +1,43 @@
-import React, { MouseEvent, ReactNode } from 'react';
-import Menu, { MenuProps } from '@mui/material/Menu';
-import { PaperProps } from '@mui/material/Paper';
+import React, { useRef, useState } from 'react';
+import { Dropdown } from 'antd';
+import { classNames } from '@/utils';
+import Button from '../Button';
+import { useOnClickOutside } from 'usehooks-ts';
+import { MenuPropsType } from './type';
 
-interface TheMenuProps extends MenuProps {
-  children: ReactNode;
-  handleClick: (event: MouseEvent<HTMLElement>) => void;
-  handleClose: () => void;
-}
-
-export function TheMenu({ children, handleClick, handleClose, anchorEl, open }: TheMenuProps) {
-  const paperProps: PaperProps = {
-    elevation: 0,
-    sx: {
-      overflow: 'visible',
-      filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-      mt: 1.5,
-      '& .MuiAvatar-root': {
-        width: 32,
-
-        ml: -0.5,
-        mr: 1,
-      },
-      '&:before': {
-        content: '""',
-        display: 'block',
-        position: 'absolute',
-        top: 0,
-        right: 14,
-        width: 10,
-        height: 10,
-        bgcolor: 'background.paper',
-        transform: 'translateY(-50%) rotate(45deg)',
-        zIndex: 0,
-      },
-    },
-  };
-
-  const menuProps: MenuProps = {
-    anchorEl,
-    id: 'account-menu',
-    open,
-    onClose: handleClose,
-    onClick: handleClose,
-    PaperProps: paperProps,
-    transformOrigin: { horizontal: 'right', vertical: 'top' },
-    anchorOrigin: { horizontal: 'right', vertical: 'bottom' },
-  };
-
+export const Menu = ({ children, className, label = 'label', labelClassName = '' }: MenuPropsType) => {
+  const [open, setOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
+  useOnClickOutside(ref, () => setOpen(false));
   return (
-    <React.Fragment>
-      <Menu {...menuProps}>{children}</Menu>
-    </React.Fragment>
+    <Dropdown
+      open={open}
+      className='w-fit z-[9999]'
+      dropdownRender={() => (
+        <div
+          dir='rtl'
+          ref={ref}
+          className={classNames(
+            'bg-white border rounded-lg flex flex-col gap-1 p-2 w-full hover:[&>div]:bg-gray-200 [&>*]:rounded-md [&>*]:p-3 [&>div]:cursor-pointer',
+            className,
+          )}
+        >
+          {children}
+        </div>
+      )}
+    >
+      <Button
+        ref={buttonRef}
+        className={classNames(labelClassName)}
+        type='default'
+        onMouseDown={(event) => event.stopPropagation()}
+        onClick={() => setOpen(!open)}
+      >
+        {label}
+      </Button>
+    </Dropdown>
   );
-}
+};
 
-export default TheMenu;
+export default Menu;
