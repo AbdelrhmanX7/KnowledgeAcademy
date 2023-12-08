@@ -18,7 +18,7 @@ const Profile = () => {
     <div className='mt-[50px]'>
       <Container maxWidth='md' className='gap-7 border rounded-lg shadow-md p-6 mt-[120px] mb-[50px] w-[90%]'>
         <div className='flex items-center justify-center'>
-          <div className='gap-7 mt-10 border rounded-full shadow-md h-12 justify-center w-[30%] mb-5 flex items-center'>
+          <div className='gap-7 mt-10 w-[300px] border rounded-full shadow-md h-12 justify-center w-[30%] mb-5 flex items-center'>
             <h3>ملف المستخدم </h3>
             <AccountCircleIcon className='m-2 text-blue-600' />
           </div>

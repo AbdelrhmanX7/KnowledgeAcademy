@@ -1,57 +1,77 @@
 import React, { ReactNode } from 'react';
-import { Button } from '@/UI';
-import Image from 'next/image';
+
 import Link from 'next/link';
+import { RiFolderVideoFill } from 'react-icons/ri';
 interface CardProps {
   title: string;
   img: string;
   type: string;
   children: ReactNode;
   href: string;
+  Class: string;
+  Subject: string;
+  number: number;
+  description: string;
+  name: string;
 }
 
-export const Card: React.FC<Partial<CardProps>> = ({ title, img, type, children, href }) => {
+export const Card: React.FC<Partial<CardProps>> = ({
+  title,
+  img,
+  type,
+  children,
+  href,
+  Class,
+  Subject,
+  number,
+  description,
+  name,
+}) => {
   if (type === 'description') {
     return (
-      <div className=' h-[400px] w-[600px] rounded-lg border shadow-lg my-8 px-3 py-2 hover:scale-110 transition duration-500'>
+      <div className=' h-[300px] w-[100%] rounded-lg border shadow-lg my-8 px-3 py-2  flex justify-center'>
         {children ? children : null}
       </div>
     );
-  } else if (type == 'classe') {
+  } else if (type === 'teacher') {
     return (
-      <div className=' w-[320px]  m-5 rounded-lg border shadow-lg my-8 px-3 py-2 hover:scale-110 transition duration-500'>
-        <div>
-          <img src={img} className='h-[320px]' />
-          <Link href={href ?? ''}>
-            <Button className='w-[100%]'>{title}</Button>
-          </Link>
+      <div className='w-[250px] h-[350px] m-5 rounded-lg border shadow my-8 overflow-hidden flex flex-col'>
+        <div className='h-[80%] relative overflow-hidden'>
+          <img src={img} alt={title} className='w-full h-full object-cover h-[100%]' />
+        </div>
+        <div className='p-4 flex flex-col justify-center flex-1' style={{ direction: 'rtl' }}>
+          <div className=''>
+            <div className='flex ' style={{ justifyContent: 'space-between' }}>
+              <p className='text-blue-500'> {Subject}</p>
+              <p className='text-blue-500'> {name}</p>
+            </div>
+            <p>{description}</p>
+          </div>
         </div>
       </div>
     );
-  } else if (type === 'lecture') {
+  } else if (type === 'lecturer') {
     return (
-      <div className=' w-[320px]  m-5 rounded-lg border shadow-lg my-8 px-3 py-2 hover:scale-110 transition duration-500'>
-        <div>
-          <div className='text-right flex' style={{ justifyContent: 'space-between' }}>
-            <h4 className='m-1'>
-              {' '}
-              السعر :<span style={{ color: 'red' }}> 150 جنية </span>{' '}
-            </h4>
-            <h4 className='m-1'>{title}</h4>
+      <Link href={href ?? ''}>
+        <div className='w-[250px] h-[350px] m-5 rounded-lg border shadow my-8 overflow-hidden flex flex-col'>
+          <div className='h-[70%] relative overflow-hidden'>
+            <img src={img} alt={title} className='w-full h-full object-cover' />
           </div>
-          <p className='w-[100%] mx-auto bg-blue-500 h-0.5'></p>
-          {typeof img === 'string' ? (
-            <img src={img} alt={title} /> // Regular image
-          ) : (
-            <Image src={img ?? ''} alt={title ?? ''} style={{ height: '300px' }} /> // Image loaded using next/image
-          )}
-          <p className='w-[100%] mx-auto bg-blue-500 h-0.5'></p>
-          <div className='flex justify-between'>
-            <Button className='m-3'> اشترك الان </Button>
-            <Button className='m-3'> دخول للكورس </Button>
+          <div className='p-4 flex flex-col justify-center flex-1' style={{ direction: 'rtl' }}>
+            <div className=''>
+              <div className='flex' style={{ justifyContent: 'space-between' }}>
+                <h1 className='text-sm text-gray-500'> {Class}</h1>
+                <h1 className='text-sm text-blue-500'> {Subject}</h1>
+              </div>
+              <h2 className='text-lg font-semibold mb-2'>{title}</h2>
+              <p className='flex items-center text-sm '>
+                <RiFolderVideoFill className='m-1 text-red-500' />
+                {number} محاضرات
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      </Link>
     );
   }
 };
