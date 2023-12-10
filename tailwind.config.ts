@@ -6,7 +6,6 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/UI/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-
   plugins: [],
 };
 export default config;

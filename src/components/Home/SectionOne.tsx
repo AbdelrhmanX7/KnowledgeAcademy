@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Container from '@mui/material/Container';
-
+import Image from 'next/image';
 interface SectionOneProps {
   name: string;
   img?: string;
@@ -41,7 +41,7 @@ const SectionOne: React.FC<SectionOneProps> = ({ name, img, description }) => {
             {description}
           </h3>
         ) : null}
-        {img ? <img className='image-with-animation' style={{ width: '400px' }} src={img} alt='Section Image' /> : null}
+        {img ? <Image src={img} width={400} height={400} alt='Teacher Image' /> : null}
       </Container>
 
       <div>
