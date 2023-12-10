@@ -13,7 +13,7 @@ interface CardProps {
 export const Card: React.FC<Partial<CardProps>> = ({ title, img, type, children, href }) => {
   if (type === 'description') {
     return (
-      <div className=' h-[400px] w-[600px] rounded-lg border shadow-lg my-8 px-3 py-2 hover:scale-110 transition duration-500'>
+      <div className='  w-[600px] rounded-lg border shadow-lg my-8 px-3 py-2 hover:scale-110 transition duration-500'>
         {children ? children : null}
       </div>
     );
