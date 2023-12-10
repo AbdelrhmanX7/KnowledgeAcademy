@@ -23,7 +23,7 @@ const Navbar = () => {
   const { data, isLoading } = useGetEWallet();
 
   useEffect(() => setUserData(user), [user]);
-
+  console.log(user);
   const [openDialog, setOpenDialog] = useState(false);
 
   return (
@@ -73,7 +73,7 @@ const Navbar = () => {
                       <h6 className='text-gray-700'>الصفحة الرئيسية</h6>
                     </Link>
                   </div>
-                  <Link href='/login' className='w-[100%]'>
+                  <Link href='/' className='w-[100%]'>
                     <Button
                       onClick={() => {
                         setUser({});
@@ -98,7 +98,6 @@ const Navbar = () => {
               )}
             </div>
           </Toolbar>
-          {/* <Menu /> */}
         </AppBar>
       </Box>
     </div>
