@@ -53,7 +53,7 @@ export default function SignUp() {
         <Input
           value={username}
           onChange={(e) => setFormState({ ...formState, username: e.target.value })}
-          label='اسم مستخدم'
+          label='اسم المستخدم'
         />
         <Input
           label='رقم الهاتف'
@@ -71,12 +71,12 @@ export default function SignUp() {
           onChange={(e) => setFormState({ ...formState, email: e.target.value })}
         />
         <PasswordInput
-          label='كلمة مرور'
+          label='كلمة المرور'
           value={password}
           onChange={(e) => setFormState({ ...formState, password: e.target.value })}
         />
         <PasswordInput
-          label='تاكيد كلمة مرور'
+          label='تاكيد كلمة المرور'
           confirmPassword
           value={passwordConfirmation}
           onChange={(e) => setFormState({ ...formState, passwordConfirmation: e.target.value })}

@@ -70,10 +70,30 @@ h1 {
   font-weight: 600;
   font-size: 30px;
 }
-
+h2 {
+  font-size: 30px;
+  font-weight: bold;
+  color: rgb(95, 93, 93);
+}
 h3 {
   font-size: 25px;
   font-weight: bold;
+  color: rgb(95, 93, 93);
+}
+h4 {
+  font-size: 20px;
+  font-weight: 600;
+  color: rgb(124, 124, 124);
+}
+p {
+  font-size: 18px;
+  color: rgb(124, 124, 124);
+}
+
+.sticky-section {
+  position: sticky;
+  top: 70px; /* تحديد المسافة من الأعلى التي تريد أن يكون العنصر ثابتًا عندها */
+  z-index: 1000; /* إذا كنت تحتاج إلى طبقة مرتفعة للعنصر */
 }
 
 @media screen and (max-width: 450px) {
