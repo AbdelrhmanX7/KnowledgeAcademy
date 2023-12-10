@@ -29,11 +29,7 @@ export const Card: React.FC<Partial<CardProps>> = ({
 }) => {
   if (type === 'description') {
     return (
-<<<<<<< Updated upstream
-      <div className=' h-[400px] w-[600px] rounded-lg border shadow-lg my-8 px-3 py-2 hover:scale-110 transition duration-500'>
-=======
       <div className=' h-[auto] w-[100%] rounded-lg border shadow-lg my-8 px-3 py-2  '>
->>>>>>> Stashed changes
         {children ? children : null}
       </div>
     );
