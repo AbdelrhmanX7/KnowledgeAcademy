@@ -22,7 +22,7 @@ const Wallet = () => {
         </div>
         <div className='flex flex-col md:flex-row'>
           <Card type='description'>
-            <div className='justify-center w-[100%] h-[300px]'>
+            <div className='justify-center w-[100%] h-[280px]'>
               <div className='' style={{ textAlign: 'center' }}>
                 <h3 className='m-2'>الرصيد الحالي </h3>
                 <hr />
