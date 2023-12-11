@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 
 import Link from 'next/link';
 import { RiFolderVideoFill } from 'react-icons/ri';
+
 interface CardProps {
   title: string;
   img: string;
@@ -20,7 +21,7 @@ export const Card: React.FC<Partial<CardProps>> = ({
   img = 'DEFAULT_IMAGE_URL',
   type,
   children,
-  href,
+  href: href = '', // Add a default value
   Class,
   Subject,
   number,
@@ -52,7 +53,7 @@ export const Card: React.FC<Partial<CardProps>> = ({
     );
   } else if (type === 'lecturer') {
     return (
-      <Link href={href ?? ''}>
+      <Link href={href}>
         <div className='w-[250px] h-[350px] m-5 rounded-lg border shadow my-8 overflow-hidden flex flex-col'>
           <div className='h-[70%] relative overflow-hidden'>
             <img src={img} alt={title} className='w-full h-full object-cover' />
