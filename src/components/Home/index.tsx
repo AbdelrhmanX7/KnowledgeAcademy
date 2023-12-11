@@ -2,7 +2,7 @@ import React from 'react';
 import SectionOne from './SectionOne';
 import SectionTwo from './SectionTwo';
 import SectionThree from './SectionThree';
-
+import AllTeacher from '@/pages/teacher/all-Teacher/AllTeacher';
 const HomeContent = () => {
   const sectionProps = {
     name: 'Knowledge Academy',
@@ -14,6 +14,7 @@ const HomeContent = () => {
       <SectionOne {...sectionProps} />
       <SectionTwo />
       <SectionThree />
+      <AllTeacher />
     </div>
   );
 };
