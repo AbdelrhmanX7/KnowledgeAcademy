@@ -51,7 +51,7 @@ export const Card: React.FC<Partial<CardProps>> = ({
               <h3 className='text-white'> {name}</h3>
               <h4 className='text-black m-2'> {Subject}</h4>
             </div>
-            <p style={{ fontSize: '17px', fontWeight: 'bold', color: 'white' }}>{description}</p>
+            <p style={{ fontSize: '16px', fontWeight: 'bold', color: 'white' }}>{description}</p>
           </div>
         </div>
       </div>
