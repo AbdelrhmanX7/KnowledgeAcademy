@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import Image from 'next/image';
 import { TiPinOutline } from 'react-icons/ti';
 import Link from 'next/link';
 import { RiFolderVideoFill } from 'react-icons/ri';
@@ -21,7 +22,7 @@ export const Card: React.FC<Partial<CardProps>> = ({
   img = 'DEFAULT_IMAGE_URL',
   type,
   children,
-  href: href = '', // Add a default value
+  href,
   Class,
   Subject,
   number,
@@ -42,7 +43,7 @@ export const Card: React.FC<Partial<CardProps>> = ({
         </div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <div className='h-[180px] w-[180px] relative overflow-hidden mt-3' style={{ borderRadius: '50%' }}>
-            <img src={img} alt={title} className='w-[100%] h-full object-cover h-[100%]' />
+            <Image src={`/${img}`} alt={''} width={250} height={250} objectFit='cover' />
           </div>
         </div>
         <div className='p-4 flex flex-col justify-center flex-1' style={{ direction: 'rtl' }}>
@@ -58,10 +59,10 @@ export const Card: React.FC<Partial<CardProps>> = ({
     );
   } else if (type === 'lecturer') {
     return (
-      <Link href={href}>
+      <Link href={href ?? ''}>
         <div className='w-[250px] h-[350px] m-5 rounded-lg border shadow my-8 overflow-hidden flex flex-col'>
           <div className='h-[70%] relative overflow-hidden'>
-            <img src={img} alt={title} className='w-full h-full object-cover' />
+            <Image src={`/${img}`} alt={''} width={250} height={350} objectFit='cover' />
           </div>
           <div className='p-4 flex flex-col justify-center flex-1' style={{ direction: 'rtl' }}>
             <div className=''>

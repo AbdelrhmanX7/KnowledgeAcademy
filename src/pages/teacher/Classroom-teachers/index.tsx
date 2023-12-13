@@ -47,7 +47,6 @@ const ClassroomTeachers: React.FC = () => {
     { id: Math.random(), title: 'علم النفس مع احمد خالد ', img: 'images (6).jfif', subject: 'علم نفس', number: 10 },
     { id: Math.random(), title: 'الفلسفة مع عمرو خالد ', img: 'images (6).jfif', subject: 'فلسفة ', number: 5 },
     { id: Math.random(), title: 'الاحياء مع محمود السيد ', img: 'images (6).jfif', subject: 'احياء ', number: 12 },
-    { id: Math.random(), title: 'الكيمياء مع احمد محمود  ', img: 'images (6).jfif', subject: 'كيمياء ', number: 8 },
   ];
   return (
     <div className='mt-[80px] flex' style={{ direction: 'rtl' }}>

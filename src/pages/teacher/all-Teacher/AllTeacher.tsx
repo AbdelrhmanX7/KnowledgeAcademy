@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaChalkboardTeacher } from 'react-icons/fa';
 import Container from '@mui/material/Container';
-import { Card, FilterMenu } from '@/UI';
+import { FilterMenu, Card } from '@/UI';
 
 interface Teacher {
   id: number;
@@ -27,7 +27,7 @@ const AllTeacher: React.FC = () => {
     {
       id: 3,
       name: 'يوسف توفيق',
-      image: 'images (4).jfif',
+      image: 'images (6).jfif',
       description: 'مدرس لغة عربية حاصل على بكارليوس التربية من كلية تربية جامعة القاهر ',
     },
     {

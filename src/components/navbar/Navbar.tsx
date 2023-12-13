@@ -73,7 +73,7 @@ const Navbar = () => {
                       <h6 className='text-gray-700'>الصفحة الرئيسية</h6>
                     </Link>
                   </div>
-                  <Link href='/login' className='w-[100%]'>
+                  <Link href='/' className='w-[100%]'>
                     <Button
                       onClick={() => {
                         setUser({});
