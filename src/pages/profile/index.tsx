@@ -12,8 +12,8 @@ import ProfileItem from './ProfileItem';
 const Profile = () => {
   const localStorageUser = useReadLocalStorage<any>('user');
   const [user, setUser] = useState<any>();
-  useEffect(() => setUser(localStorageUser), []);
-  console.log(user);
+  useEffect(() => setUser(localStorageUser), [localStorageUser]);
+  console.log(localStorageUser);
   return (
     <div className='mt-[50px]'>
       <Container maxWidth='md' className='gap-7 border rounded-lg shadow-md p-6 mt-[120px] mb-[50px] w-[90%]'>
