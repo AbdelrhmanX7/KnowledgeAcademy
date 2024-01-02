@@ -55,7 +55,14 @@ li {
   font-weight: bold;
   color: black;
 }
-h3 {
+h4 {
+  font-size: 20px;
+
+  color: rgb(72, 68, 68);
+}
+h5 {
+  font-size: 17px;
+
   color: rgb(72, 68, 68);
 }
 
@@ -72,6 +79,7 @@ h1 {
 }
 
 h3 {
+  color: rgb(72, 68, 68);
   font-size: 25px;
   font-weight: bold;
 }
