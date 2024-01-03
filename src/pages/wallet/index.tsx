@@ -4,7 +4,7 @@ import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalance
 import { Button } from '@/UI';
 import { useGetEWallet } from '@/Services/Hooks';
 import WalletDialog from './WalletDialog';
-import { Modal, Card } from '@/UI';
+import { Modal } from '@/UI';
 import CircularProgress from '@mui/material/CircularProgress';
 
 const Wallet = () => {
@@ -21,7 +21,7 @@ const Wallet = () => {
           </div>
         </div>
         <div className='flex flex-col md:flex-row'>
-          <Card type='description'>
+          <div className='border'>
             <div className='justify-center w-[100%] h-[350px]'>
               <div className='' style={{ textAlign: 'center' }}>
                 <h3 className='m-2'>الرصيد الحالي </h3>
@@ -42,7 +42,7 @@ const Wallet = () => {
                 يمكنك شحن رصيد محفظتك بوسائل الدفع التي ندعمها لتتمكن من استخدام محفظتك في الشراء داخل المنصة
               </p>
             </div>
-          </Card>
+          </div>
           <div className='w-full md:w-[60%] md:mr-[100px] h-[300px] mt-8 border rounded-lg shadow-md'>
             <h3 className='text-center my-5'> سجل عمليات الدفع !</h3>
 
