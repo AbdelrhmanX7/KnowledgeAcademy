@@ -20,9 +20,9 @@ const Wallet = () => {
             <h3>المحفظة الإلكترونية </h3>
           </div>
         </div>
-        <div className='flex flex-col md:flex-row'>
-          <div className='border'>
-            <div className='justify-center w-[100%] h-[350px]'>
+        <div className='flex flex-col md:flex-row items-end'>
+          <div className='border h-[300px]'>
+            <div className='justify-center w-[100%] '>
               <div className='' style={{ textAlign: 'center' }}>
                 <h3 className='m-2'>الرصيد الحالي </h3>
                 <hr />
@@ -38,7 +38,7 @@ const Wallet = () => {
                   <WalletDialog onClose={() => setOpenDialog(false)} />
                 </Modal>
               </div>
-              <p className='text-center text-lg'>
+              <p className='text-right font-inter text-gray-600 text-xl font-normal p-2'>
                 يمكنك شحن رصيد محفظتك بوسائل الدفع التي ندعمها لتتمكن من استخدام محفظتك في الشراء داخل المنصة
               </p>
             </div>
