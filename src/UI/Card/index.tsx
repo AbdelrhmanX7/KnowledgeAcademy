@@ -14,13 +14,7 @@ interface CardProps {
   name?: string;
 }
 
-const Card: React.FC<CardProps> = ({
-  title,
-  img = 'DEFAULT_IMAGE_URL',
-  Subject,
-  description,
-  type,
-}: CardProps) => {
+const Card: React.FC<CardProps> = ({ title, img = 'DEFAULT_IMAGE_URL', Subject, description, type }: CardProps) => {
   return (
     <div className=' w-[320px] border shadow m-5'>
       <div className=' w-[100%] '>
