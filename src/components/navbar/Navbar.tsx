@@ -9,7 +9,7 @@ import { useLocalStorage } from 'usehooks-ts';
 import HomeIcon from '@mui/icons-material/Home';
 import { setCookie } from 'cookies-next';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { useGetEWallet } from '@/Services/Hooks';
+import { useGetEWallet } from '@/services/hooks';
 import { AiOutlineUser } from 'react-icons/ai';
 import WalletOutlinedIcon from '@mui/icons-material/WalletOutlined';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';

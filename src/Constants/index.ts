@@ -12,3 +12,5 @@ export const STUDY_PHASES = [
     value: '3',
   },
 ];
+
+export * from './tableHeader';

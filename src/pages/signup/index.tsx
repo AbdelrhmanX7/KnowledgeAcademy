@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useCreateStudentAccount } from '@/Services/Hooks';
+import { useCreateStudentAccount } from '@/services/hooks';
 import toast from 'react-hot-toast';
 import { setCookie } from 'cookies-next';
 import { useLocalStorage } from 'usehooks-ts';

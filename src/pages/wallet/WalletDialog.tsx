@@ -2,10 +2,10 @@ import { useState } from 'react';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import WalletIcon from '@mui/icons-material/Wallet';
-import { useAddBalance } from '@/Services/Hooks';
+import { useAddBalance } from '@/services/hooks';
 import { Button, Input } from '@/UI';
 import toast from 'react-hot-toast';
-import { GetInvalidateQueries } from '@/Services/InvalidateQueries';
+import { GetInvalidateQueries } from '@/services/invalidateQueries';
 
 const WalletDialog = ({ onClose }: { onClose?: () => void }) => {
   const [rechargeCode, setRechargeCode] = useState<string>('');

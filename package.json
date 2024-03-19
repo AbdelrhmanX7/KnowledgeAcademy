@@ -18,6 +18,8 @@
     "@mui/icons-material": "^5.14.18",
     "@mui/material": "^5.14.18",
     "@tanstack/react-query": "^5.8.4",
+    "@tanstack/react-table": "^8.13.2",
+    "@tanstack/react-virtual": "^3.2.0",
     "antd": "^5.11.4",
     "axios": "^1.6.2",
     "cookies-next": "^4.1.0",
@@ -52,7 +54,8 @@
     "eslint-config-next": "14.0.3",
     "eslint-config-prettier": "^9.0.0",
     "postcss": "^8",
-    "prettier": "2.8.8",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.12",
     "storybook": "^7.5.3",
     "tailwindcss": "^3.3.0",
     "typescript": "^5.2.2"
