@@ -27,6 +27,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.tsx",
+    "**/*.ts",
     "src/UI/SelectableCard/SelectableCard.stories.sx",
     "src/UI/SelectableCards/SelectableCards.stories.jsx"
   ],
