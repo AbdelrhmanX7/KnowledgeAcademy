@@ -4,5 +4,4 @@ export * from './Input';
 export * from './SelectableCards';
 export * from './Modal';
 export * from './menu';
-export * from './Card';
 export * from './Table';
