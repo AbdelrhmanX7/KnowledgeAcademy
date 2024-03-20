@@ -1,5 +1,5 @@
 export const API = process.env.API ?? 'https://luxuriant-drawer-production.up.railway.app';
-
+console.log('API', API);
 export * from './authentication';
 export * from './e-wallet';
 export * from './upload';

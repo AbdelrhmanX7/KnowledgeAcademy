@@ -7,6 +7,7 @@ import { Button, Input, Select } from '@/UI';
 import { STUDY_PHASES } from '@/Constants';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { API } from '@/services/APIs';
 const { Dragger } = Upload;
 const getBase64 = (file: any, callback: (url: string) => void) => {
   const reader = new FileReader();
@@ -19,7 +20,7 @@ dayjs.extend(customParseFormat);
 const props: UploadProps = {
   name: 'file',
   multiple: false,
-  action: 'http://localhost:4000/upload',
+  action: `${API}/upload`,
   onDrop(e) {
     console.log('Dropped files', e.dataTransfer.files);
   },
