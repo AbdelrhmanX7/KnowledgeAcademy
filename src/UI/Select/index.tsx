@@ -11,6 +11,7 @@ export const Select = ({ label, ...props }: SelectComponentProps) => {
         </p>
       )}
       <SelectComp
+        direction='rtl'
         {...props}
         className='w-full [&_.ant-select-selector]:!text-lg  [&_.ant-select-selector]:!font-medium font-medium h-14 text-lg'
         allowClear

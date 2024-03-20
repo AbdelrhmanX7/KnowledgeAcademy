@@ -22,7 +22,7 @@ export const walletTableColumn = [
         return (
           <div>
             <Tag icon={<CheckCircleOutlined />} color='success'>
-            Succeeded
+              Succeeded
             </Tag>
           </div>
         );
