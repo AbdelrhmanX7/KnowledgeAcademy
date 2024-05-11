@@ -3,7 +3,7 @@ import { DeleteOutlined, InboxOutlined } from '@ant-design/icons';
 import type { UploadFile } from 'antd';
 import { message, Progress, Upload } from 'antd';
 import { Button, Input, Select } from '@/UI';
-import { STUDY_PHASES } from '@/Constants';
+import { STUDY_PHASES } from '@/constants';
 import { API } from '@/services/APIs';
 import { UploadImage } from '@/components/upload';
 import axios from 'axios';

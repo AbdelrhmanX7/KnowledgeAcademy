@@ -6,7 +6,7 @@ import { useGetEWallet } from '@/services/hooks';
 import WalletDialog from './WalletDialog';
 import { Modal } from '@/UI';
 import CircularProgress from '@mui/material/CircularProgress';
-import { walletTableColumn } from '@/Constants';
+import { walletTableColumn } from '@/constants';
 
 const Wallet = () => {
   const { data, isLoading } = useGetEWallet();

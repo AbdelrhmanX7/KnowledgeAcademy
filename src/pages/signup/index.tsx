@@ -6,7 +6,7 @@ import { setCookie } from 'cookies-next';
 import { useLocalStorage } from 'usehooks-ts';
 import { useRouter } from 'next/router';
 import { Button, EmailInput, Input, PasswordInput, Select } from '@/UI';
-import { STUDY_PHASES } from '@/Constants';
+import { STUDY_PHASES } from '@/constants';
 
 export default function SignUp() {
   const router = useRouter();
