@@ -74,10 +74,10 @@ export default function UploadPage() {
         ];
       });
 
-      message.success('File uploaded successfully');
+      message.success('تم رفع الفيديو بنجاح');
       return getRespone;
     } catch (error) {
-      console.error('Error uploading file:', error);
+      message.error('حدث خطأ اثناء رفع الفيديو');
     }
   };
 
@@ -92,11 +92,10 @@ export default function UploadPage() {
           },
         })
         .then((res) => res.data);
-      message.success('File uploaded successfully');
-      console.log(getRespone);
+      message.success('تم رفع الصورة بنجاح');
       return getRespone;
     } catch (error) {
-      message.error('Error uploading file');
+      message.error('حدث خطأ اثناء رفع الصورة');
     }
   };
 
