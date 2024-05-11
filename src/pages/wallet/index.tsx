@@ -11,6 +11,7 @@ import { walletTableColumn } from '@/Constants';
 const Wallet = () => {
   const { data, isLoading } = useGetEWallet();
   const [openDialog, setOpenDialog] = useState(false);
+  console.log(data);
   return (
     <div className='mt-[150px] mb-[150px]'>
       <Container maxWidth='lg' className='gap-7 border rounded-lg shadow-md p-6 mt-[120px] mb-[50px] w-full'>
@@ -26,14 +27,12 @@ const Wallet = () => {
             <h3>{isLoading ? <CircularProgress /> : `جنية ${data?.eWallet?.balance}`}</h3>
           </div>
           <div className='m-3'>
-            <Button onClick={() => setOpenDialog(true)}>
-              ! اشحن محفظتك الان{' '}
-            </Button>
+            <Button onClick={() => setOpenDialog(true)}>اشحن محفظتك الان </Button>
             <Modal open={openDialog} onClose={() => setOpenDialog(false)}>
               <WalletDialog onClose={() => setOpenDialog(false)} />
             </Modal>
           </div>
-          <h3 className='text-center mt-5'>! سجل عمليات الدفع </h3>
+          <h3 className='text-center mt-5'>سجل عمليات الدفع </h3>
           <Table data={data?.eWallet?.transactions ?? []} columns={walletTableColumn} />
         </div>
       </Container>

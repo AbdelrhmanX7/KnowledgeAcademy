@@ -5,12 +5,12 @@ import WalletIcon from '@mui/icons-material/Wallet';
 import { useAddBalance } from '@/services/hooks';
 import { Button, Input } from '@/UI';
 import toast from 'react-hot-toast';
-import { GetInvalidateQueries } from '@/services/invalidateQueries';
+import { useGetInvalidateQueries } from '@/services/invalidateQueries';
 
 const WalletDialog = ({ onClose }: { onClose?: () => void }) => {
   const [rechargeCode, setRechargeCode] = useState<string>('');
   const { mutateAsync: addBalanceFn, isPending } = useAddBalance();
-  const { invalidateEWalletQuery } = GetInvalidateQueries();
+  const { invalidateEWalletQuery } = useGetInvalidateQueries();
 
   return (
     <div className='max-w-[450px]'>
@@ -31,13 +31,12 @@ const WalletDialog = ({ onClose }: { onClose?: () => void }) => {
             try {
               await addBalanceFn({ rechargeCode });
               toast.success('تم الشحن بنجاح');
-              invalidateEWalletQuery();
               setRechargeCode('');
               onClose && onClose();
             } catch (error: any) {
               toast.error(error?.response?.data?.message);
-              invalidateEWalletQuery();
             }
+            invalidateEWalletQuery();
           }}
           isLoading={isPending}
           disabled={rechargeCode.length !== 16 || isPending}

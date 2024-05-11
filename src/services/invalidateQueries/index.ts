@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 
-export const GetInvalidateQueries = () => {
+export const useGetInvalidateQueries = () => {
   const queryClient = useQueryClient();
   return {
     invalidateEWalletQuery: () =>

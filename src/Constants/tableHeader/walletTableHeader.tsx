@@ -38,6 +38,11 @@ export const walletTableColumn = [
     },
     footer: (info) => info.column.id,
   }),
+  columnHelper.accessor('value', {
+    header: () => <span>Amount</span>,
+    cell: (info) => info?.getValue() ?? 'N/A',
+    footer: (info) => info.column.id,
+  }),
   columnHelper.accessor('studentId', {
     header: () => <span>Student Id</span>,
     footer: (info) => info.column.id,

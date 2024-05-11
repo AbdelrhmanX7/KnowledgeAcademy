@@ -16,13 +16,19 @@ import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalance
 import WalletDialog from '@/pages/wallet/WalletDialog';
 
 import { Modal, Menu } from '@/UI';
+import { useGetInvalidateQueries } from '@/services/invalidateQueries';
 
 const Navbar = () => {
   const [user, setUser] = useLocalStorage<any>('user', {});
   const [userData, setUserData] = useState<any>({});
   const { data, isLoading } = useGetEWallet();
 
-  useEffect(() => setUserData(user), [user]);
+  const { invalidateEWalletQuery } = useGetInvalidateQueries();
+
+  useEffect(() => {
+    setUserData(user);
+    invalidateEWalletQuery();
+  }, [user]);
 
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -55,7 +61,7 @@ const Navbar = () => {
                       <h6 className='m-1 '> رصيدك : </h6>
                       <h6 className='m-1 '>{isLoading ? 'Loading...' : `جنية ${data?.eWallet?.balance}`}</h6>
                     </div>
-                    <Button onClick={() => setOpenDialog(true)}>اشحن !</Button>
+                    <Button onClick={() => setOpenDialog(true)}>اشحن</Button>
                     <Modal open={openDialog} onClose={() => setOpenDialog(false)}>
                       <WalletDialog onClose={() => setOpenDialog(false)} />
                     </Modal>
@@ -73,14 +79,14 @@ const Navbar = () => {
                       <h6 className='text-gray-700'>الصفحة الرئيسية</h6>
                     </Link>
                   </div>
-                  <Link href='/login' className='w-[100%]'>
+                  <Link href='/login' className='!p-0'>
                     <Button
                       onClick={() => {
                         setUser({});
                         setCookie('token', '');
                       }}
                       danger
-                      className='w-[100%]'
+                      className='w-full'
                     >
                       تسجيل خروج
                     </Button>
@@ -88,10 +94,10 @@ const Navbar = () => {
                 </Menu>
               ) : (
                 <>
-                  <Link href='/login'>
+                  <Link className='!p-0' href='/login'>
                     <Button>تسجيل دخول</Button>
                   </Link>
-                  <Link href='/signup'>
+                  <Link className='!p-0' href='/signup'>
                     <Button type='default'>تسجيل</Button>
                   </Link>
                 </>
