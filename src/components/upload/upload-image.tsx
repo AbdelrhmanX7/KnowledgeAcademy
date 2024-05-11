@@ -39,9 +39,9 @@ export const UploadImage = ({ getImageFile }: { getImageFile: (file: string | Rc
   };
 
   const uploadButton = (
-    <button style={{ border: 0, background: 'none' }} type='button'>
+    <button className='border-0 bg-none' type='button'>
       <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Upload Image</div>
+      <div className='mt-2'>اختر صورة الحصة</div>
     </button>
   );
 

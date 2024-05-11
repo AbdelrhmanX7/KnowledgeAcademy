@@ -133,8 +133,8 @@ export default function UploadPage() {
   }
 
   return (
-    <div className='flex items-center justify-evenly p-6 h-screen'>
-      <div className='w-[900px]'>
+    <div className='flex lg:flex-row flex-col items-center justify-evenly p-6 h-fit mt-20'>
+      <div className='max-w-[900px] w-full'>
         <div className='aspect-video border rounded-lg shadow-md'>
           <Dragger
             maxCount={1}
@@ -185,7 +185,11 @@ export default function UploadPage() {
             ) : (
               <div className='text-center'>
                 <InboxOutlined className='text-5xl' />
-                <p className='text-lg'>Click or drag file to this area to upload video</p>
+                <p className='text-lg'>
+                  انقر أو اسحب وأسقط ملف الفيديو هنا لرفعه
+                  <br />
+                  يجب ان يكون الفيديو بصيغة mp4
+                </p>
               </div>
             )}
           </Dragger>
@@ -204,12 +208,14 @@ export default function UploadPage() {
           </Button>
         )}
       </div>
-      <div className='flex flex-col gap-6'>
-        <UploadImage
-          getImageFile={(img) => {
-            setImageFile(img);
-          }}
-        />
+      <div className='flex flex-col gap-6 lg:w-[unset] w-full'>
+        <div className='w-full flex justify-end lg:mt-0 mt-6'>
+          <UploadImage
+            getImageFile={(img) => {
+              setImageFile(img);
+            }}
+          />
+        </div>
         <Input
           onChange={({ target }) => {
             setFormState({ ...formState, title: target.value });
