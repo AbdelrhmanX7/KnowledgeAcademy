@@ -4,7 +4,7 @@ import { jwtVerify } from 'jose';
 
 const PUBLIC_FILE = /\.(.*)$/;
 
-const UNPROTECTED_PATHS = ['/login', '/signup'];
+const UNPROTECTED_PATHS = ['/login', '/signup', '/create-teacher'];
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;

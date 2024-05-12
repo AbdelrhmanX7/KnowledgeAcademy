@@ -3,10 +3,9 @@ import Link from 'next/link';
 import { useLogin } from '@/services/hooks';
 import { useLocalStorage } from 'usehooks-ts';
 import { setCookie } from 'cookies-next';
-import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
 import { Button, EmailInput, PasswordInput } from '@/UI';
-import { Checkbox } from 'antd';
+import { Checkbox, message } from 'antd';
 
 type LoginFormType = {
   email: string;
@@ -52,10 +51,10 @@ export default function Login() {
               const res = await loginFn(formState);
               setCookie('token', res?.token);
               setUserData(res?.user);
-              toast.success('تم تسجيل الدخول بنجاح');
+              message.success('تم تسجيل الدخول بنجاح');
               router.push('/');
             } catch (error: any) {
-              toast.error(error?.response?.data);
+              message.error(error?.response?.data);
             }
           }}
         >

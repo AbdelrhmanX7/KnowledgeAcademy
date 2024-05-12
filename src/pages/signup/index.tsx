@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useCreateStudentAccount } from '@/services/hooks';
-import toast from 'react-hot-toast';
 import { setCookie } from 'cookies-next';
 import { useLocalStorage } from 'usehooks-ts';
 import { useRouter } from 'next/router';
 import { Button, EmailInput, Input, PasswordInput, Select } from '@/UI';
 import { STUDY_PHASES } from '@/constants';
+import { message } from 'antd';
 
 export default function SignUp() {
   const router = useRouter();
@@ -90,10 +90,10 @@ export default function SignUp() {
                 const res = await signupFn(formState);
                 setCookie('token', res?.token);
                 setUserData(res?.user);
-                toast.success('تم تسجيل الدخول بنجاح');
+                message.success('تم تسجيل الدخول بنجاح');
                 router.push('/');
               } catch (error: any) {
-                toast.error(JSON.stringify(error?.response?.data));
+                message.error(JSON.stringify(error?.response?.data));
               }
             }}
           >

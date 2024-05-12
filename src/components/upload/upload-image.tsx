@@ -1,6 +1,7 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { GetProp, Image, Upload, UploadFile, UploadProps } from 'antd';
 import { RcFile } from 'antd/es/upload';
+import { UploadListType } from 'antd/es/upload/interface';
 import React, { useState } from 'react';
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
@@ -13,7 +14,15 @@ const getBase64 = (file: FileType): Promise<string> =>
     reader.onerror = (error) => reject(error);
   });
 
-export const UploadImage = ({ getImageFile }: { getImageFile: (file: string | RcFile | Blob) => void }) => {
+export const UploadImage = ({
+  getImageFile,
+  uploadButtonText = 'اختر صورة الحصة',
+  listType = 'picture-card',
+}: {
+  uploadButtonText?: React.ReactNode | string;
+  listType?: UploadListType | undefined;
+  getImageFile: (file: RcFile | Blob | string, fileList?: UploadFile<any>) => void;
+}) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const handlePreview = async (file: UploadFile) => {
@@ -41,7 +50,7 @@ export const UploadImage = ({ getImageFile }: { getImageFile: (file: string | Rc
   const uploadButton = (
     <button className='border-0 bg-none' type='button'>
       <PlusOutlined />
-      <div className='mt-2'>اختر صورة الحصة</div>
+      <div className='mt-2'>{uploadButtonText}</div>
     </button>
   );
 
@@ -49,10 +58,10 @@ export const UploadImage = ({ getImageFile }: { getImageFile: (file: string | Rc
     <>
       <Upload
         customRequest={(req) => {
-          getImageFile(req.file);
+          getImageFile && getImageFile(req.file, fileList[0]);
         }}
         maxCount={1}
-        listType='picture-card'
+        listType={listType}
         fileList={fileList}
         onPreview={handlePreview}
         onChange={handleChange}

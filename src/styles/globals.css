@@ -4,6 +4,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap');
 
+* {
+  font-size: 18px;
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -22,14 +26,17 @@
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: radial-gradient(farthest-side, #766df4 94%, #0000) top/4px 4px no-repeat,
+  background:
+    radial-gradient(farthest-side, #766df4 94%, #0000) top/4px 4px no-repeat,
     conic-gradient(#0000 30%, #766df4);
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 4px), #000 0);
   animation: s3 1s infinite linear;
 }
 
 .custom-loader.white {
-  background: radial-gradient(farthest-side, white 94%, #0000) top/4px 4px no-repeat, conic-gradient(#0000 30%, white);
+  background:
+    radial-gradient(farthest-side, white 94%, #0000) top/4px 4px no-repeat,
+    conic-gradient(#0000 30%, white);
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 4px), #000 0);
 }
 

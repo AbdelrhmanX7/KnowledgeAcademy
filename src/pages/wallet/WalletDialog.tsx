@@ -4,8 +4,8 @@ import DialogActions from '@mui/material/DialogActions';
 import WalletIcon from '@mui/icons-material/Wallet';
 import { useAddBalance } from '@/services/hooks';
 import { Button, Input } from '@/UI';
-import toast from 'react-hot-toast';
 import { useGetInvalidateQueries } from '@/services/invalidateQueries';
+import { message } from 'antd';
 
 const WalletDialog = ({ onClose }: { onClose?: () => void }) => {
   const [rechargeCode, setRechargeCode] = useState<string>('');
@@ -30,11 +30,11 @@ const WalletDialog = ({ onClose }: { onClose?: () => void }) => {
           onClick={async () => {
             try {
               await addBalanceFn({ rechargeCode });
-              toast.success('تم الشحن بنجاح');
+              message.success('تم الشحن بنجاح');
               setRechargeCode('');
               onClose && onClose();
             } catch (error: any) {
-              toast.error(error?.response?.data?.message);
+              message.error(error?.response?.data?.message);
             }
             invalidateEWalletQuery();
           }}

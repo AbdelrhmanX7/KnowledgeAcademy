@@ -16,6 +16,7 @@ export const PasswordInput = forwardRef<InputRef, PasswordInputProps>(function P
 
       <Input.Password
         type='password'
+        placeholder='123456'
         allowClear
         className={classNames('font-medium h-14 text-lg', className)}
         ref={ref}

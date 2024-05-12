@@ -10,6 +10,7 @@ export const EmailInput = ({ className, label, ...props }: NormalInputProps) => 
         label={label}
         type='email'
         allowClear
+        placeholder='abdelrhman.example222@gmail.com'
         className={classNames('font-medium h-14 text-lg', className)}
         {...props}
       />
