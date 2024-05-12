@@ -21,7 +21,7 @@
     "@tanstack/react-query": "^5.8.4",
     "@tanstack/react-table": "^8.13.2",
     "@tanstack/react-virtual": "^3.2.0",
-    "antd": "^5.11.4",
+    "antd": "5.17.0",
     "axios": "^1.6.2",
     "cookies-next": "^4.1.0",
     "jose": "^5.1.1",

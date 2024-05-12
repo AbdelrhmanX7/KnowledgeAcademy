@@ -2,6 +2,7 @@ import { UploadImage } from '@/components/upload';
 import { STUDY_PHASES, SUBJECTS } from '@/constants';
 import { useCreateTeacher } from '@/services/hooks/useTeacher';
 import { Button, CheckboxGroup, EmailInput, Input, PasswordInput, Select } from '@/UI';
+import Textarea from '@/UI/textarea';
 import { getBase64 } from '@/utils';
 import { Form } from 'antd';
 import React, { useEffect, useState } from 'react';
@@ -51,6 +52,14 @@ export default function CreateTeacher() {
           <Input placeholder='عبدالرحمن كمال' label='اسم مستخدم' />
         </Form.Item>
 
+        <Form.Item name='description'>
+          <Textarea
+            placeholder='مش لاقي كلام اقولوا بس مفروض دة مكان ل مدرس انوا يكتب شرح بسيط عن نفسوا'
+            label='وصف'
+            rows={4}
+          />
+        </Form.Item>
+
         <Form.Item name='email' rules={[{ required: true, message: 'يجب ادخال بريد الكتروني', type: 'email' }]}>
           <EmailInput label='بريد الاكتروني' />
         </Form.Item>
@@ -98,7 +107,7 @@ export default function CreateTeacher() {
           name='subjects'
           rules={[{ required: true, type: 'array', min: 1, message: 'يجب اختيار مادة واحدة علي الاقل' }]}
         >
-          <Select label='المواد الدراسية' mode='multiple' options={SUBJECTS} />
+          <Select placeholder='لغة العربية' label='المواد الدراسية' mode='multiple' options={SUBJECTS} />
         </Form.Item>
 
         <Form.Item name='studyPhase' rules={[{ required: true, message: 'يجب اختيار صف دراسي واحد علي الاقل' }]}>
