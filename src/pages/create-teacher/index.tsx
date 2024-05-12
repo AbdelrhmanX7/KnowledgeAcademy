@@ -4,8 +4,11 @@ import { useCreateTeacher } from '@/services/hooks/useTeacher';
 import { Button, CheckboxGroup, EmailInput, Input, PasswordInput, Select } from '@/UI';
 import Textarea from '@/UI/textarea';
 import { getBase64 } from '@/utils';
-import { Form } from 'antd';
+import { Form, message } from 'antd';
+import { setCookie } from 'cookies-next';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { useLocalStorage } from 'usehooks-ts';
 
 export default function CreateTeacher() {
   const { mutateAsync: createTeacherFn, isPending } = useCreateTeacher();
@@ -24,6 +27,10 @@ export default function CreateTeacher() {
   }, [form, values]);
 
   const [profileImage, setProfileImage] = useState<string>('');
+
+  const [, setUserData] = useLocalStorage('user', {});
+
+  const router = useRouter();
 
   return (
     <div className='h-fit mt-20 mb-6 px-4 py-6 rounded-lg flex justify-center items-center mx-auto sm:max-w-[550px] max-w-none w-full sm:border border-0'>
@@ -118,10 +125,19 @@ export default function CreateTeacher() {
           <Button
             isLoading={isPending}
             onClick={async () => {
-              await createTeacherFn({
-                ...values,
-                profileImage,
-              });
+              try {
+                const res = await createTeacherFn({
+                  ...values,
+                  profileImage,
+                });
+                setCookie('token', res?.token);
+                setUserData(res?.user);
+                message.success('تم انشاء الحساب بنجاح');
+                router.push('/');
+              } catch (error: any) {
+                message.error('حدث خطأ اثناء انشاء الحساب');
+                message.error(error?.response?.data);
+              }
             }}
             disabled={!submittable || isPending}
             type='primary'

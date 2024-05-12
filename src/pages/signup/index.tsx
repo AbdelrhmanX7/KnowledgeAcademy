@@ -89,7 +89,7 @@ export default function SignUp() {
               try {
                 const res = await signupFn(formState);
                 setCookie('token', res?.token);
-                setUserData(res?.user);
+                setUserData(res?.teacher);
                 message.success('تم تسجيل الدخول بنجاح');
                 router.push('/');
               } catch (error: any) {
