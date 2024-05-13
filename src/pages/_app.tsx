@@ -6,8 +6,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
 
+const queryClient = new QueryClient();
 export default function App({ Component, pageProps }: AppProps) {
-  const queryClient = new QueryClient();
   const token = getCookie('token');
   axios.defaults.headers.common.Authorization = token;
 

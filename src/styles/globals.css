@@ -2,11 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap');
-
-* {
-  font-size: 18px;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -47,7 +43,7 @@
 }
 
 * {
-  font-family: 'El Messiri', sans-serif;
+  font-family: 'Rubik', sans-serif !important;
 }
 
 body {

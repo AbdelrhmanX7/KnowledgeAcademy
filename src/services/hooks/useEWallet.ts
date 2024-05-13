@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { addBalance, getEWallet } from '../APIs';
+import { addBalance, getEWallet, buyLecture } from '../APIs';
 
 export const useGetEWallet = () => {
   const query = useQuery({
@@ -13,5 +13,11 @@ export const useGetEWallet = () => {
 export const useAddBalance = () => {
   return useMutation({
     mutationFn: (body: { rechargeCode: string }) => addBalance(body),
+  });
+};
+
+export const useBuyLecture = () => {
+  return useMutation({
+    mutationFn: (body: { lectureId: string }) => buyLecture(body),
   });
 };

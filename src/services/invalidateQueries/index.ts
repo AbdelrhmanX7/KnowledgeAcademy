@@ -7,5 +7,19 @@ export const useGetInvalidateQueries = () => {
       queryClient.invalidateQueries({
         queryKey: ['getEWallet'],
       }),
+    invalidateGetTeachersQuery: () =>
+      queryClient.invalidateQueries({
+        queryKey: ['getTeachers'],
+      }),
+
+    invalidateGetTeacherQuery: () =>
+      queryClient.invalidateQueries({
+        queryKey: ['getTeacherLectures'],
+      }),
+
+    invalidateGetLectureQuery: () =>
+      queryClient.invalidateQueries({
+        queryKey: ['getLecture'],
+      }),
   };
 };

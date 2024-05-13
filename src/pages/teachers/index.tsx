@@ -1,26 +1,23 @@
 import { STUDY_PHASES } from '@/constants';
-import { Button, Input, Select } from '@/UI';
-import { Form } from 'antd';
+import { useGetUserData } from '@/hooks';
+import { useGetTeachers } from '@/services/hooks/useTeacher';
+import { TeacherCard } from '@/UI';
 import React from 'react';
 
 export default function Teachers() {
+  const userData = useGetUserData();
+
+  const { data } = useGetTeachers({ studyPhase: userData?.studyPhase ?? '' });
+
   return (
-    <div>
-      <Form variant='filled' style={{ maxWidth: 600 }}>
-        <Form.Item label='Input' name='Input' rules={[{ required: true, message: 'Please input!' }]}>
-          <Input />
-        </Form.Item>
-
-        <Form.Item label='Select' name='Select' rules={[{ required: true, message: 'Please input!' }]}>
-          <Select label='الصف الدراسي' options={STUDY_PHASES} />
-        </Form.Item>
-
-        <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
-          <Button type='primary' htmlType='submit'>
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
+    <div dir='rtl' className='mt-20 mb-10 flex gap-4 w-full'>
+      {data?.map((teacher: any) => (
+        <TeacherCard
+          key={teacher.id}
+          data={teacher}
+          studyPhase={STUDY_PHASES.find((phase) => phase.value === userData?.studyPhase)?.label}
+        />
+      ))}
     </div>
   );
 }

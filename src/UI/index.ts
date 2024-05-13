@@ -7,3 +7,5 @@ export * from './menu';
 export * from './Table';
 export * from './card';
 export * from './checkbox';
+export * from './teacher-card';
+export * from './image-with-fallback';

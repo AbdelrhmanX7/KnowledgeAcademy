@@ -131,7 +131,7 @@ export default function CreateTeacher() {
                   profileImage,
                 });
                 setCookie('token', res?.token);
-                setUserData(res?.user);
+                setUserData(res?.teacher);
                 message.success('تم انشاء الحساب بنجاح');
                 router.push('/');
               } catch (error: any) {
