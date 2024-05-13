@@ -2,7 +2,7 @@ import { UploadImage } from '@/components/upload';
 import { STUDY_PHASES, SUBJECTS } from '@/constants';
 import { useCreateTeacher } from '@/services/hooks/useTeacher';
 import { Button, CheckboxGroup, EmailInput, Input, PasswordInput, Select } from '@/UI';
-import Textarea from '@/UI/textarea';
+// import Textarea from '@/UI/textarea';
 import { getBase64 } from '@/utils';
 import { Form, message } from 'antd';
 import { setCookie } from 'cookies-next';
@@ -58,14 +58,14 @@ export default function CreateTeacher() {
         <Form.Item name='username' rules={[{ required: true, message: 'يجب ادخال اسم مستخدم' }]}>
           <Input placeholder='عبدالرحمن كمال' label='اسم مستخدم' />
         </Form.Item>
-
+        {/* 
         <Form.Item name='description'>
           <Textarea
             placeholder='مش لاقي كلام اقولوا بس مفروض دة مكان ل مدرس انوا يكتب شرح بسيط عن نفسوا'
             label='وصف'
             rows={4}
           />
-        </Form.Item>
+        </Form.Item> */}
 
         <Form.Item name='email' rules={[{ required: true, message: 'يجب ادخال بريد الكتروني', type: 'email' }]}>
           <EmailInput label='بريد الاكتروني' />
