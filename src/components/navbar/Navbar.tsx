@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+import { AppBar, Toolbar, Typography } from '@mui/material';
 import Link from 'next/link';
-import { Button } from '../../UI/Button';
 import { useLocalStorage } from 'usehooks-ts';
 import HomeIcon from '@mui/icons-material/Home';
 import { setCookie } from 'cookies-next';
@@ -14,8 +10,7 @@ import { AiOutlineUser } from 'react-icons/ai';
 import WalletOutlinedIcon from '@mui/icons-material/WalletOutlined';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import WalletDialog from '@/pages/wallet/WalletDialog';
-
-import { Modal, Menu } from '@/UI';
+import { Modal, Menu, Button } from '@/UI';
 import { useGetInvalidateQueries } from '@/services/invalidateQueries';
 
 const Navbar = () => {
@@ -27,87 +22,84 @@ const Navbar = () => {
 
   useEffect(() => {
     setUserData(user);
-    invalidateEWalletQuery();
+    if (user?.username) {
+      invalidateEWalletQuery();
+    }
   }, [user]);
 
   const [openDialog, setOpenDialog] = useState(false);
 
   return (
-    <div>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position='fixed' className='bg-white'>
-          <Toolbar>
-            <Typography className='text-blue-600' variant='h6' component='div' sx={{ flexGrow: 1 }}>
-              <Link href='/'>Knowledge Academy</Link>
-            </Typography>
-            <div className='flex gap-4'>
-              {userData?.username ? (
-                <Menu
-                  labelClassName='py-2'
-                  label={<AiOutlineUser className='text-blue-500 cursor-pointer' />}
-                  className='font-bold m-4 text-lg'
+    <AppBar className='bg-white sticky top-0'>
+      <Toolbar>
+        <Typography className='text-blue-600' variant='h6' component='div' sx={{ flexGrow: 1 }}>
+          <Link href='/'>Knowledge Academy</Link>
+        </Typography>
+        <div className='flex gap-4'>
+          {userData?.username ? (
+            <Menu
+              labelClassName='py-2'
+              label={<AiOutlineUser className='text-blue-500 cursor-pointer' />}
+              className='font-bold m-4 text-lg'
+            >
+              <div className='hover:bg-black'>{userData?.username}</div>
+              <div>
+                <Link className='no-underline inline-flex w-full' href='/profile'>
+                  <AccountCircleIcon className='text-blue-500 ml-2' />
+                  <h5 className='text-gray-700'>الملف الشخصي</h5>
+                </Link>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ display: 'flex' }}>
+                  <WalletOutlinedIcon className='text-blue-500 ml-2' />
+                  <h6 className='m-1 '> رصيدك : </h6>
+                  <h6 className='m-1 '>{isLoading ? 'Loading...' : `جنية ${data?.eWallet?.balance}`}</h6>
+                </div>
+                <Button onClick={() => setOpenDialog(true)}>اشحن</Button>
+                <Modal open={openDialog} onClose={() => setOpenDialog(false)}>
+                  <WalletDialog onClose={() => setOpenDialog(false)} />
+                </Modal>
+              </div>
+              <div>
+                <Link className='link no-underline inline-flex w-full' href='/wallet'>
+                  <AccountBalanceWalletOutlinedIcon className='text-blue-500 ml-2' />
+                  <h6 className='text-gray-700'> المحفظة الالكترونية </h6>
+                </Link>
+              </div>
+
+              <div>
+                <Link className='link no-underline inline-flex w-full' href='/'>
+                  <HomeIcon className='text-blue-500 ml-2' />
+                  <h6 className='text-gray-700'>الصفحة الرئيسية</h6>
+                </Link>
+              </div>
+              <Link href='/login' className='!p-0'>
+                <Button
+                  onClick={() => {
+                    setUser({});
+                    setCookie('token', '');
+                  }}
+                  danger
+                  className='w-full'
                 >
-                  <div className='hover:bg-black'>{userData?.username}</div>
-                  <div>
-                    <Link className='no-underline inline-flex w-full' href='/profile'>
-                      <AccountCircleIcon className='text-blue-500 ml-2' />
-                      <h5 className='text-gray-700'>الملف الشخصي</h5>
-                    </Link>
-                  </div>
-
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div style={{ display: 'flex' }}>
-                      <WalletOutlinedIcon className='text-blue-500 ml-2' />
-                      <h6 className='m-1 '> رصيدك : </h6>
-                      <h6 className='m-1 '>{isLoading ? 'Loading...' : `جنية ${data?.eWallet?.balance}`}</h6>
-                    </div>
-                    <Button onClick={() => setOpenDialog(true)}>اشحن</Button>
-                    <Modal open={openDialog} onClose={() => setOpenDialog(false)}>
-                      <WalletDialog onClose={() => setOpenDialog(false)} />
-                    </Modal>
-                  </div>
-                  <div>
-                    <Link className='link no-underline inline-flex w-full' href='/wallet'>
-                      <AccountBalanceWalletOutlinedIcon className='text-blue-500 ml-2' />
-                      <h6 className='text-gray-700'> المحفظة الالكترونية </h6>
-                    </Link>
-                  </div>
-
-                  <div>
-                    <Link className='link no-underline inline-flex w-full' href='/'>
-                      <HomeIcon className='text-blue-500 ml-2' />
-                      <h6 className='text-gray-700'>الصفحة الرئيسية</h6>
-                    </Link>
-                  </div>
-                  <Link href='/login' className='!p-0'>
-                    <Button
-                      onClick={() => {
-                        setUser({});
-                        setCookie('token', '');
-                      }}
-                      danger
-                      className='w-full'
-                    >
-                      تسجيل خروج
-                    </Button>
-                  </Link>
-                </Menu>
-              ) : (
-                <>
-                  <Link className='!p-0' href='/login'>
-                    <Button>تسجيل دخول</Button>
-                  </Link>
-                  <Link className='!p-0' href='/signup'>
-                    <Button type='default'>تسجيل</Button>
-                  </Link>
-                </>
-              )}
-            </div>
-          </Toolbar>
-          {/* <Menu /> */}
-        </AppBar>
-      </Box>
-    </div>
+                  تسجيل خروج
+                </Button>
+              </Link>
+            </Menu>
+          ) : (
+            <>
+              <Link className='!p-0' href='/login'>
+                <Button>تسجيل دخول</Button>
+              </Link>
+              <Link className='!p-0' href='/signup'>
+                <Button type='default'>تسجيل</Button>
+              </Link>
+            </>
+          )}
+        </div>
+      </Toolbar>
+    </AppBar>
   );
 };
 

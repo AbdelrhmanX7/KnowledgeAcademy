@@ -5,19 +5,24 @@ import Footer from '@/components/Footer/Footer';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
-
+import { Cairo } from 'next/font/google';
 const queryClient = new QueryClient();
+const cairo = Cairo({ subsets: ['latin'] });
 export default function App({ Component, pageProps }: AppProps) {
   const token = getCookie('token');
   axios.defaults.headers.common.Authorization = token;
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Navbar />
+      <main className={cairo.className}>
+        <div className='relative'>
+          <Navbar />
 
-      <Component {...pageProps} />
+          <Component {...pageProps} />
 
-      <Footer />
+          <Footer />
+        </div>
+      </main>
     </QueryClientProvider>
   );
 }

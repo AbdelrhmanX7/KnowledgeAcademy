@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { createTeacher, getTeachers, getTeacherLectures } from '../APIs';
+import { createTeacher, getTeachers, getTeacher } from '../APIs';
 import { CreateTeacherType } from '../type';
 import { useGetUserData } from '@/hooks';
 import { STUDY_PHASES } from '@/constants';
@@ -10,7 +10,8 @@ export const useCreateTeacher = () => {
   });
 };
 
-export const useGetTeachers = ({ studyPhase = '' }: { studyPhase?: string }) => {
+export const useGetTeachers = () => {
+  const { studyPhase } = useGetUserData();
   const query = useQuery({
     queryKey: ['getTeachers'],
     queryFn: () => {
@@ -21,16 +22,15 @@ export const useGetTeachers = ({ studyPhase = '' }: { studyPhase?: string }) => 
   return { ...query, data: query.data };
 };
 
-export const useGetTeacherLectures = ({ id }: { id?: string }) => {
+export const useGetTeacher = ({ id }: { id?: string }) => {
   const { studyPhase: userStudyPhase } = useGetUserData();
   const query = useQuery({
-    queryKey: ['getTeacherLectures'],
-    queryFn: () => {
-      return getTeacherLectures({
+    queryKey: ['getTeacher'],
+    queryFn: () =>
+      getTeacher({
         id,
         studyPhase: STUDY_PHASES.find((phase) => phase.value === userStudyPhase)?.label,
-      });
-    },
+      }),
     enabled: !!id,
   });
 

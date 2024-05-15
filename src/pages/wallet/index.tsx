@@ -11,7 +11,7 @@ import { walletTableColumn } from '@/constants';
 const Wallet = () => {
   const { data, isLoading } = useGetEWallet();
   const [openDialog, setOpenDialog] = useState(false);
-  console.log(data);
+
   return (
     <div className='mt-[150px] mb-[150px]'>
       <Container maxWidth='lg' className='gap-7 border rounded-lg shadow-md p-6 mt-[120px] mb-[50px] w-full'>

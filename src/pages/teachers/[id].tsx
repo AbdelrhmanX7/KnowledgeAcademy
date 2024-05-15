@@ -1,69 +1,93 @@
-import { useBuyLecture } from '@/services/hooks';
-import { useGetTeacherLectures } from '@/services/hooks/useTeacher';
-import { useGetInvalidateQueries } from '@/services/invalidateQueries';
-import { Button, Image } from '@/UI';
-import { message, Tag } from 'antd';
+import { useGetTeacher } from '@/services/hooks/useTeacher';
+import { Image, LectureCard, SkeletonCard } from '@/UI';
+import { useQueryClient } from '@tanstack/react-query';
+import { Empty } from 'antd';
 import { useRouter } from 'next/router';
-import React from 'react';
-
+import React, { useEffect } from 'react';
+import { FaPeopleGroup, FaVideo } from 'react-icons/fa6';
 export default function TeacherId() {
-  const { query, push } = useRouter();
+  const queryClient = useQueryClient();
+  useEffect(() => {
+    queryClient.removeQueries({ queryKey: ['getTeacher'] });
+  }, []);
+  const { query } = useRouter();
 
-  const { data, refetch } = useGetTeacherLectures({ id: query.id as string });
-
-  const { mutateAsync: buyLuctureFn, isPending } = useBuyLecture();
-
-  const { invalidateEWalletQuery } = useGetInvalidateQueries();
+  const { data, isLoading } = useGetTeacher({ id: query.id as string });
 
   return (
-    <div className='mt-20 mb-10 flex flex-wrap gap-4'>
-      {data?.map((lecture: any) => {
-        return (
-          <div
-            key={lecture._id}
-            className='flex flex-col aspect-[4/5] w-[400px] border rounded-lg shadow-md cursor-pointer hover:bg-[#f8f8f8] hover:scale-[1.01] duration-300'
-          >
-            <div className='w-full h-[200px] relative overflow-hidden rounded-t-lg'>
-              <Image className='object-cover' width={400} height={200} alt='' src={lecture?.thumbnail ?? ''} />
+    <div>
+      <div className='relative aspect-video mb-6'>
+        <Image className='absolute -z-10' alt='' src={data?.profileImage} />
+        <div className='absolute w-full h-full'>
+          <div className='text-white p-6 w-full h-full flex gap-3 flex-col justify-between items-start bg-[#0000007d] hover:bg-[#000000af] duration-150 md:[&>div]:block [&>div]:hidden'>
+            <div />
+            <div>
+              <p className='clamp-[46px-6vw-92px] font-extrabold'>{data?.username}</p>
+              <p className='clamp-[32px-4vw-60px]'>{data?.subjects?.map((subject: any) => subject).join('، ')}</p>
+              <p className='clamp-[32px-4vw-60px] text-[#f2f2f2] font-bold line-clamp-2'>{data?.description}</p>
             </div>
-            <div className='flex flex-col  p-3'>
-              <p className='text-[22px] text-[#404040]'>{lecture?.teacherName ?? ''}</p>
-              <p className='text-2xl h-[72px]'>{lecture?.title ?? ''}</p>
-            </div>
-            <div className='px-3 mb-3'>
-              <Tag className='text-base' color='orange'>
-                امتحان
-              </Tag>
-            </div>
-            <div className='px-3 w-full'>
-              <Button
-                onClick={async () => {
-                  if (!lecture?.isPurchased) {
-                    try {
-                      await buyLuctureFn({ lectureId: lecture._id });
-                      await invalidateEWalletQuery();
-                      await refetch();
-                      message.success('تم شراء الحصة بنجاح');
-                    } catch (error: any) {
-                      message.error(error?.response?.data);
-                    }
-                  } else {
-                    push(`/lecture/${lecture._id}`);
-                  }
-                }}
-                isLoading={isPending}
-                className='w-full text-2xl !font-bold'
-              >
-                {lecture?.isPurchased ? 'فتح الحصة' : `${lecture.price} جنية`}
-              </Button>
-            </div>
-            <div className='h-[62px] text-[#696969] [&_p]:text-[22px] mt-auto flex justify-between items-center border-t px-3 py-2'>
-              <p>مدة الحصة: {lecture?.video?.duration ?? 'N/A'}</p>
-              <p>{lecture?.studyPhase}</p>
+            <div className='w-full'>
+              <div className='clamp-[32px-4vw-60px] w-full flex justify-evenly items-center font-bold'>
+                <div className='flex flex-col items-center'>
+                  <p>{data?.studentsCount}</p>
+                  <FaPeopleGroup />
+                  <p className='text-3xl text-[#f2f2f2]'>عدد طلاب</p>
+                </div>
+                <div className='flex flex-col items-center'>
+                  <p>{data?.lectures?.length}</p>
+                  <FaVideo />
+                  <p className='text-3xl text-[#f2f2f2]'>عدد الحصص</p>
+                </div>
+              </div>
             </div>
           </div>
-        );
-      })}
+        </div>
+      </div>
+      <div>
+        <div className='px-6 mb-10 md:hidden block'>
+          <div className='bg-[#6041ff] w-full shadow border rounded-lg p-6 text-white'>
+            <div>
+              <p className='text-5xl font-bold'>{data?.username}</p>
+              <p className='text-4xl my-2'>{data?.subjects?.map((subject: any) => subject).join('، ')}</p>
+              <p className='text-3xl line-clamp-2'>
+                {data?.description?.length > 100 ? data?.description?.slice(0, 100) + '...' : data?.description}
+              </p>
+            </div>
+            <div className='text-4xl mt-10'>
+              <div className='w-full grid grid-auto-fit-[130px] gap-6 justify-between font-bold'>
+                <div className='w-full flex flex-col items-center'>
+                  <p>{data?.studentsCount}</p>
+                  <FaPeopleGroup />
+                  <p className='text-3xl'>عدد طلاب</p>
+                </div>
+                <div className='w-full flex flex-col items-center'>
+                  <p>{data?.lectures?.length}</p>
+                  <FaVideo />
+                  <p className='text-3xl'>عدد الحصص</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p className='text-5xl font-bold px-6 text-[#212427] border-b w-fit pb-2'>الحصص المرفوعة</p>
+        <div className='mt-10 px-6 mb-10 grid gap-6 grid-auto-fit-[380px]'>
+          {isLoading || !query?.id?.length ? (
+            <SkeletonCard />
+          ) : !data?.lectures?.length ? (
+            <Empty
+              className='text-2xl font-bold'
+              description='لا يجود اي حصص مرفوعة حتي الان'
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+            />
+          ) : (
+            <>
+              {data?.lectures?.map((lecture: any) => {
+                return <LectureCard key={lecture._id} lecture={lecture} />;
+              })}
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

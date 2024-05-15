@@ -2180,6 +2180,11 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.10.2.tgz#053f1540703faa81dea2966b768ee5581c66aeda"
   integrity sha512-hw437iINopmQuxWPSUEvqE56NCPsiU8N4AYtfHmJFckclktzK9YQJieD3XkDCDH4OjL+C7zgPUh73R/nrcHrqw==
 
+"@shrutibalasa/tailwind-grid-auto-fit@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@shrutibalasa/tailwind-grid-auto-fit/-/tailwind-grid-auto-fit-1.1.0.tgz#ff65531727c442856279f16614f6cb815b20429a"
+  integrity sha512-sh/Vmdz/xTVziUF9ZYDb5YpECApdK85KXSRIJY58GzmdUuum5QBE3jqDeNMjICEVaVOSrOnp+gqUWx8A9dmZjA==
+
 "@sinclair/typebox@^0.27.8":
   version "0.27.8"
   resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.27.8.tgz#6667fac16c436b5434a387a34dedb013198f6e6e"
@@ -9179,6 +9184,11 @@ react-element-to-jsx-string@^15.0.0:
     "@base2/pretty-print-object" "1.0.1"
     is-plain-object "5.0.0"
     react-is "18.1.0"
+
+react-fast-marquee@^1.6.4:
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/react-fast-marquee/-/react-fast-marquee-1.6.4.tgz#ac0bed0faee63e4d97e9b8cd03f3bea9f242fab3"
+  integrity sha512-LAgvhRmHdqaUQ8R5jCUwzEGFUIjnCCt3T3W8X7j7wF6DWe0SATlpP0JX1V0pp2qX3DYUezmn1Iz5AtRFdL2EWQ==
 
 react-hot-toast@^2.4.1:
   version "2.4.1"

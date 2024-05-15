@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
-
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -42,15 +40,10 @@
   }
 }
 
-* {
-  font-family: 'Rubik', sans-serif !important;
-}
-
-body {
+/* body {
   font-family: 'Almarai', sans-serif;
   font-family: 'Alumni Sans Inline One', sans-serif;
-  font-family: 'Cairo', sans-serif;
-}
+} */
 
 li {
   margin-top: 15px;

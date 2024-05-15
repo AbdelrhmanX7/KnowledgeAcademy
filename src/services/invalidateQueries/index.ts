@@ -14,7 +14,7 @@ export const useGetInvalidateQueries = () => {
 
     invalidateGetTeacherQuery: () =>
       queryClient.invalidateQueries({
-        queryKey: ['getTeacherLectures'],
+        queryKey: ['getTeacher'],
       }),
 
     invalidateGetLectureQuery: () =>

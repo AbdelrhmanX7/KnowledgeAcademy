@@ -2,38 +2,23 @@ import axios from 'axios';
 import { API } from '.';
 import { CreateTeacherType } from '../type';
 import { STUDY_PHASES } from '@/constants';
+import { getCookie } from 'cookies-next';
 
-export const createTeacher = async (data: CreateTeacherType) => {
-  try {
-    const getRespone = await axios.post(`${API}/create-teacher`, data).then((res) => res.data);
-    return getRespone;
-  } catch (error) {
-    console.log(error);
-  }
-};
+export const createTeacher = async (data: CreateTeacherType) =>
+  axios.post(`${API}/create-teacher`, data).then((res) => res.data);
 
-export const getTeachers = async ({ studyPhase }: { studyPhase: string }) => {
-  try {
-    const getRespone = await axios.get(`${API}/get-teachers?studyPhase=${studyPhase}`).then((res) => res.data);
-    return getRespone;
-  } catch (error) {
-    console.log(error);
-  }
-};
+export const getTeachers = async ({ studyPhase = '' }: { studyPhase: string }) =>
+  await axios.get(`${API}/get-teachers?studyPhase=${studyPhase}`).then((res) => res.data);
 
-export const getTeacherLectures = async ({ id, studyPhase }: { id?: string; studyPhase?: string }) => {
+export const getTeacher = async ({ id = '', studyPhase = '' }: { id?: string; studyPhase?: string }) => {
   try {
     const getRespone = await axios
-      .get(`${API}/get-teacher-lectures?teacherId=${id}&studyPhase=${studyPhase}`)
+      .get(`${API}/get-teacher?teacherId=${id}&studyPhase=${studyPhase}`)
       .then((res) => res.data);
 
-    for (const lecture of getRespone ?? []) {
+    for (const lecture of getRespone?.lectures ?? []) {
       if (lecture?.thumbnail?.path) {
-        const getThumbnail = await axios
-          .get(`${API}/${lecture.thumbnail.path}`, {
-            responseType: 'blob',
-          })
-          .then((res) => URL.createObjectURL(res.data));
+        const getThumbnail = `${API}/image-streaming?imagePath=${lecture?.thumbnail?.path}&authorization=${getCookie('token') ?? ''}`;
         lecture.thumbnail = getThumbnail;
       } else {
         lecture.thumbnail = '';
@@ -42,7 +27,7 @@ export const getTeacherLectures = async ({ id, studyPhase }: { id?: string; stud
     }
 
     return getRespone;
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    return [];
   }
 };
