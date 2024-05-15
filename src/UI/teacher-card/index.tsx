@@ -20,7 +20,7 @@ export const TeacherCard = ({ data, studyPhase }: TeacherCardProps) => {
         <div className='flex flex-col p-3'>
           <p className='text-[22px] text-[#404040]'>{data?.username}</p>
           <p className='text-[22px] text-[#404040]'>{data?.subjects[0]}</p>
-          <p className='text-2xl h-[72px]'>{data?.description}</p>
+          <p className='text-2xl h-[72px] truncate'>{data?.description}</p>
         </div>
         <div className='px-3 my-3'>
           <SocialMediaLinks />

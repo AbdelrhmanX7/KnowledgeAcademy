@@ -58,7 +58,7 @@ export const LectureCard = ({ lecture }: any) => {
           {lecture?.isPurchased ? 'فتح الحصة' : `${lecture.price} جنية`}
         </Button>
       </div>
-      <div className='h-[62px] text-[#696969] [&_p]:text-[22px] mt-auto flex justify-between items-center border-t px-3 py-2'>
+      <div className='h-[62px] text-[#696969] [&_p]:truncate [&_p]:text-[22px] mt-auto flex justify-between items-center border-t px-3 py-2'>
         <p>مدة الحصة: {lecture?.video?.duration ?? 'N/A'}</p>
         <p>{lecture?.studyPhase}</p>
       </div>

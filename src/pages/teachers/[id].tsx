@@ -54,7 +54,7 @@ export default function TeacherId() {
               </p>
             </div>
             <div className='text-4xl mt-10'>
-              <div className='w-full grid grid-auto-fit-[130px] gap-6 justify-between font-bold'>
+              <div className='w-full grid grid-auto-fit-[160px] gap-6 justify-between font-bold'>
                 <div className='w-full flex flex-col items-center'>
                   <p>{data?.studentsCount}</p>
                   <FaPeopleGroup />
@@ -70,7 +70,7 @@ export default function TeacherId() {
           </div>
         </div>
         <p className='text-5xl font-bold px-6 text-[#212427] border-b w-fit pb-2'>الحصص المرفوعة</p>
-        <div className='mt-10 px-6 mb-10 grid gap-6 grid-auto-fit-[380px]'>
+        <div className='mt-10 px-6 mb-10 grid gap-6 grid-auto-fit-[290px]'>
           {isLoading || !query?.id?.length ? (
             <SkeletonCard />
           ) : !data?.lectures?.length ? (

@@ -130,10 +130,14 @@ export default function CreateTeacher() {
                   ...values,
                   profileImage,
                 });
-                setCookie('token', res?.token);
-                setUserData(res?.teacher);
-                message.success('تم انشاء الحساب بنجاح');
-                router.push('/');
+                if (res?.user) {
+                  setCookie('token', res?.token);
+                  setUserData(res?.user);
+                  message.success('تم انشاء الحساب بنجاح');
+                  router.push('/');
+                } else {
+                  throw new Error('حدث خطأ اثناء انشاء الحساب');
+                }
               } catch (error: any) {
                 message.error('حدث خطأ اثناء انشاء الحساب');
                 message.error(error?.response?.data);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useCreateStudentAccount } from '@/services/hooks';
 import { setCookie } from 'cookies-next';
@@ -6,90 +6,100 @@ import { useLocalStorage } from 'usehooks-ts';
 import { useRouter } from 'next/router';
 import { Button, EmailInput, Input, PasswordInput, Select } from '@/UI';
 import { STUDY_PHASES } from '@/constants';
-import { message } from 'antd';
+import { Form, message } from 'antd';
 
 export default function SignUp() {
   const router = useRouter();
-  const [formState, setFormState] = useState({
-    firstName: '',
-    lastName: '',
-    username: '',
-    email: '',
-    phone: '',
-    password: '',
-    passwordConfirmation: '',
-    studyPhase: '',
-  });
-
-  const { firstName, lastName, username, email, phone, password, passwordConfirmation, studyPhase } = formState;
 
   const { mutateAsync: signupFn, isPending } = useCreateStudentAccount();
 
   const [, setUserData] = useLocalStorage('user', {});
 
-  function validation() {
-    if (!username || !email || !phone || !password || !passwordConfirmation || !firstName || !lastName || !studyPhase) {
-      return false;
-    }
-    return true;
-  }
+  const [form] = Form.useForm();
+
+  const [submittable, setSubmittable] = useState<boolean>(false);
+
+  const values = Form.useWatch([], form);
+
+  useEffect(() => {
+    form
+      .validateFields({ validateOnly: true })
+      .then(() => setSubmittable(true))
+      .catch(() => setSubmittable(false));
+  }, [form, values]);
 
   return (
     <div className='flex justify-center items-center'>
-      <div className='flex flex-col p-6 gap-6 w-[500px] mb-10 mt-32 rounded-lg border shadow-sm text-slate-700'>
+      <Form
+        disabled={isPending}
+        form={form}
+        name='validateOnly'
+        variant='filled'
+        className='flex flex-col p-6 gap-6 w-[500px] mb-10 mt-32 rounded-lg border shadow-sm text-slate-700'
+      >
         <h1 className='text-4xl font-semibold text-center mb-3 text-black'> انشاء حساب جديد</h1>
         <div className='flex flex-row gap-6'>
-          <Input
-            value={firstName}
-            onChange={(e) => setFormState({ ...formState, firstName: e.target.value })}
-            label='الاسم الاول'
-          />
-          <Input
-            value={lastName}
-            onChange={(e) => setFormState({ ...formState, lastName: e.target.value })}
-            label='الاسم الاخير'
-          />
+          <Form.Item name={'firstName'} rules={[{ required: true, message: 'يجب ادخال الاسم الاول' }]}>
+            <Input label='الاسم الاول' />
+          </Form.Item>
+          <Form.Item name={'lastName'} rules={[{ required: true, message: 'يجب ادخال الاسم الاخير' }]}>
+            <Input label='الاسم الاخير' />
+          </Form.Item>
         </div>
-        <Input
-          value={username}
-          onChange={(e) => setFormState({ ...formState, username: e.target.value })}
-          label='اسم مستخدم'
-        />
-        <Input
-          label='رقم الهاتف'
-          value={phone}
-          onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
-        />
-        <Select
-          label='الصف الدراسي'
-          onChange={(value) => setFormState({ ...formState, studyPhase: value })}
-          options={STUDY_PHASES}
-        />
-        <EmailInput
-          label='بريد الاكتروني'
-          value={email}
-          onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-        />
-        <PasswordInput
-          label='كلمة مرور'
-          value={password}
-          onChange={(e) => setFormState({ ...formState, password: e.target.value })}
-        />
-        <PasswordInput
-          label='تاكيد كلمة مرور'
-          confirmPassword
-          value={passwordConfirmation}
-          onChange={(e) => setFormState({ ...formState, passwordConfirmation: e.target.value })}
-        />
+        <Form.Item name={'username'} rules={[{ required: true, message: 'يجب ادخال الاسم المستخدم' }]}>
+          <Input label='اسم مستخدم' />
+        </Form.Item>
+        <Form.Item
+          name='phoneNumber'
+          rules={[
+            { required: true, message: 'يجب ادخل رقم الهاتف' },
+            { type: 'string', min: 11, max: 11, warningOnly: true, message: 'يجب ان يتكون رقم الهاتف من 11 رقم' },
+          ]}
+        >
+          <Input placeholder='01000000000' maxLength={11} label='رقم الهاتف' />
+        </Form.Item>
+        <Form.Item name='studyPhase' rules={[{ required: true, min: 1, message: 'يجب اختيار الصف الدراسي' }]}>
+          <Select label='الصف الدراسي' options={STUDY_PHASES} />
+        </Form.Item>
+        <Form.Item name='email' rules={[{ required: true, message: 'يجب ادخال بريد الكتروني', type: 'email' }]}>
+          <EmailInput label='بريد الاكتروني' />
+        </Form.Item>
+        <Form.Item
+          name='password'
+          rules={[
+            { required: true, message: 'يجب ادخال كلمة المرور' },
+            { type: 'string', min: 6, message: 'يجب ان تكون كلمة المرور من 6 احرف على الاقل' },
+          ]}
+        >
+          <PasswordInput label='كلمة مرور' />
+        </Form.Item>
+        <Form.Item
+          dependencies={['password']}
+          name='passwordConfirmation'
+          rules={[
+            { required: true, message: 'يجب تاكيد كلمة المرور' },
+            { type: 'string', min: 6, message: 'يجب ان تكون كلمة المرور من 6 احرف على الاقل' },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue('password') === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(new Error('كلمة المرور غير متطابقة'));
+              },
+            }),
+          ]}
+        >
+          <PasswordInput label='تاكيد كلمة مرور' confirmPassword />
+        </Form.Item>
         <div className='flex justify-center '>
           <Button
             loading={isPending}
-            disabled={!validation()}
+            disabled={!submittable || isPending}
             onClick={async () => {
               try {
-                const res = await signupFn(formState);
+                const res = await signupFn(values);
                 setCookie('token', res?.token);
-                setUserData(res?.teacher);
+                setUserData(res?.user);
                 message.success('تم تسجيل الدخول بنجاح');
                 router.push('/');
               } catch (error: any) {
@@ -106,7 +116,7 @@ export default function SignUp() {
             <span className='text-xl font-semibold text-[#3da3f6] m-1'> ادخل إلى حسابك الآن !</span>
           </Link>
         </div>
-      </div>
+      </Form>
     </div>
   );
 }

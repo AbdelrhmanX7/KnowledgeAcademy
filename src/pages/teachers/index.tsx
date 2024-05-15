@@ -13,7 +13,7 @@ export default function Teachers() {
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
         gap: '24px',
       }}
       className='px-6 mt-20 mb-10'
