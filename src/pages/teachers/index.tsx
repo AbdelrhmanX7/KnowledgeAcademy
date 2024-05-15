@@ -10,14 +10,7 @@ export default function Teachers() {
   const { data, isFetching } = useGetTeachers();
 
   return (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-        gap: '24px',
-      }}
-      className='px-6 mt-20 mb-10'
-    >
+    <div className='px-6 mt-20 mb-10 grid gap-6 md:grid-auto-fit-[390px] grid-auto-fit-[290px]'>
       {isFetching ? (
         <SkeletonCard />
       ) : (
