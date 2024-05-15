@@ -38,7 +38,7 @@ export default function SignUp() {
     <div className='flex justify-center items-center'>
       <div className='flex flex-col p-6 gap-6 w-[500px] mb-10 mt-32 rounded-lg border shadow-sm text-slate-700'>
         <h1 className='text-4xl font-semibold text-center mb-3 text-black'> انشاء حساب جديد</h1>
-        <div className='flex flex-row-reverse gap-6'>
+        <div className='flex flex-row gap-6'>
           <Input
             value={firstName}
             onChange={(e) => setFormState({ ...formState, firstName: e.target.value })}
