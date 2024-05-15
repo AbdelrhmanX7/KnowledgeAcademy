@@ -12,7 +12,7 @@ import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalance
 import WalletDialog from '@/pages/wallet/WalletDialog';
 import { Modal, Menu, Button } from '@/UI';
 import { useGetInvalidateQueries } from '@/services/invalidateQueries';
-
+import { FaChalkboardTeacher } from 'react-icons/fa';
 const Navbar = () => {
   const [user, setUser] = useLocalStorage<any>('user', {});
   const [userData, setUserData] = useState<any>({});
@@ -65,6 +65,13 @@ const Navbar = () => {
                 <Link className='link no-underline inline-flex w-full' href='/wallet'>
                   <AccountBalanceWalletOutlinedIcon className='text-blue-500 ml-2' />
                   <h6 className='text-gray-700'> المحفظة الالكترونية </h6>
+                </Link>
+              </div>
+
+              <div>
+                <Link className='flex items-center link no-underline w-full' href='/teachers'>
+                  <FaChalkboardTeacher className='text-blue-500 ml-2' />
+                  <h6 className='text-gray-700'>المدرسين</h6>
                 </Link>
               </div>
 
