@@ -3,11 +3,11 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import FacebookIcon from '@mui/icons-material/Facebook';
 const Footer = () => {
   return (
-    <div className='h-[250px] w-full flex justify-center items-center bg-blue-500'>
+    <div className='h-[250px] w-full flex justify-center items-center bg-blue-500 mt-auto'>
       <div>
         <div className='flex'>
           💗
-          <h1 className="footer text-white text-[20px] mx-15px">
+          <h1 className='footer text-white text-[20px] mx-15px'>
             استمتع بدروس الثانوية العامة واحصل على دعم تعليمي مميز
           </h1>
           💗

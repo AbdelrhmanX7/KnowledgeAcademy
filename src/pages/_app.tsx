@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <main className={cairo.className}>
-        <div className='relative'>
+        <div className='relative min-h-screen flex flex-col'>
           <Navbar />
 
           <Component {...pageProps} />

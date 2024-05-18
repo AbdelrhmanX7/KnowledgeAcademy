@@ -5,8 +5,8 @@ import { CreateTeacher, UploadTeacherImages, VerifyAccount } from '@/components/
 export default function CreateTeacherPage() {
   const [currentStep, setCurrentStep] = useState<number>(0);
   return (
-    <div>
-      <div className='max-w-[550px] mx-auto mt-10'>
+    <div className='mt-10'>
+      <div className='max-w-[550px] mx-auto'>
         <Steps
           current={currentStep}
           items={[
@@ -22,7 +22,7 @@ export default function CreateTeacherPage() {
           ]}
         />
       </div>
-      <div className='min-h-screen h-fit flex justify-center'>
+      <div className='h-fit flex justify-center'>
         <StepComponent currentStep={currentStep} setCurrentStep={setCurrentStep} />
       </div>
     </div>

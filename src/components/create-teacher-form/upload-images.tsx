@@ -29,7 +29,7 @@ export const UploadTeacherImages = ({ goNextStep }: { goNextStep?: () => void })
       <div>
         <p className='text-lg'>الصورة الشخصية</p>
         <p className='mb-4'>يفضل ان تكون نسبة عرض الصورة إلى ارتفاعها تساوي 1 : 2*</p>
-        <div className='relative w-[400px] h-[200px] mx-auto'>
+        <div className='relative sm:aspect-auto w-full aspect-[2_/_1] sm:w-[400px] sm:h-[200px] mx-auto'>
           <UploadImage
             disabled={isLoading}
             className='absolute !w-full !h-full [&_div]:!w-full [&_div]:!h-full'
@@ -50,7 +50,7 @@ export const UploadTeacherImages = ({ goNextStep }: { goNextStep?: () => void })
       <div>
         <p className='text-lg'>صورة الخلفية</p>
         <p className='mb-4'>يفضل ان تكون نسبة عرض الصورة إلى ارتفاعها تساوي 9 : 16*</p>
-        <div className='relative w-[400px] aspect-video mx-auto'>
+        <div className='relative w-full sm:w-[400px] aspect-video mx-auto'>
           <UploadImage
             disabled={isLoading}
             className='absolute !w-full !h-full [&_div]:!w-full [&_div]:!h-full'
