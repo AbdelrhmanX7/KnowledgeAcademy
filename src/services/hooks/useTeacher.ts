@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { createTeacher, getTeachers, getTeacher } from '../APIs';
+import { createTeacher, getTeachers, getTeacher, updateTeacher } from '../APIs';
 import { CreateTeacherType } from '../type';
 import { useGetUserData } from '@/hooks';
 import { STUDY_PHASES } from '@/constants';
@@ -35,4 +35,10 @@ export const useGetTeacher = ({ id }: { id?: string }) => {
   });
 
   return { ...query, data: query.data };
+};
+
+export const useUpdateTeacher = () => {
+  return useMutation({
+    mutationFn: (body: Partial<CreateTeacherType>) => updateTeacher(body),
+  });
 };

@@ -7,17 +7,23 @@ import React, { useEffect } from 'react';
 import { FaPeopleGroup, FaVideo } from 'react-icons/fa6';
 export default function TeacherId() {
   const queryClient = useQueryClient();
+
   useEffect(() => {
     queryClient.removeQueries({ queryKey: ['getTeacher'] });
   }, []);
+
   const { query } = useRouter();
 
   const { data, isLoading } = useGetTeacher({ id: query.id as string });
 
   return (
     <div>
-      <div className='relative aspect-video mb-6'>
-        <Image className='absolute -z-10' alt='' src={data?.profileImage} />
+      <div className='relative w-full h-[calc(100vh-64px)] mb-6'>
+        <Image
+          className='absolute -z-10 object-cover object-top'
+          alt=''
+          src={data?.coverImage || data?.profileImage || ''}
+        />
         <div className='absolute w-full h-full'>
           <div className='text-white p-6 w-full h-full flex gap-3 flex-col justify-between items-start bg-[#0000007d] hover:bg-[#000000af] duration-150 md:[&>div]:block [&>div]:hidden'>
             <div />

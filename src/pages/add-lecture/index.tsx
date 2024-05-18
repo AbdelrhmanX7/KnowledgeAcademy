@@ -9,7 +9,7 @@ import { UploadImage } from '@/components/upload';
 import axios from 'axios';
 import { RcFile } from 'antd/es/upload';
 import { classNames } from '@/utils';
-import { useCreateLecture } from '@/services/hooks';
+import { useCreateLecture, useUploadThumbnail } from '@/services/hooks';
 import { CreateLectureType } from '@/services/type';
 const { Dragger } = Upload;
 
@@ -24,6 +24,8 @@ export default function UploadPage() {
     price: '0',
     studyPhase: '',
   });
+
+  const { mutateAsync: uploadThumbnailFn, isPending: isUploadThumbnailPending } = useUploadThumbnail();
 
   const [fileList, setFileList] = useState<ModifiedUploadFile[]>([]);
 
@@ -82,16 +84,8 @@ export default function UploadPage() {
   };
 
   const uploadFile = async (value: any) => {
-    const data = new FormData();
-    data.append('image-file', value);
     try {
-      const getRespone = await axios
-        .post(`${API}/upload-thumbnail`, data, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-        .then((res) => res.data);
+      const getRespone = await uploadThumbnailFn(value);
       message.success('تم رفع الصورة بنجاح');
       return getRespone;
     } catch (error) {
@@ -245,8 +239,8 @@ export default function UploadPage() {
           options={STUDY_PHASES}
         />
         <Button
-          loading={isPending}
-          disabled={isPending}
+          loading={isPending || isUploadThumbnailPending}
+          disabled={isPending || isUploadThumbnailPending}
           onClick={async () => {
             let videoId = '';
             let thumbnailId = '';

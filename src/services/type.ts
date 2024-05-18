@@ -17,4 +17,5 @@ export type CreateTeacherType = {
   studyPhase: '1' | '2' | '3'[];
   subjects: string[];
   profileImage: string;
+  coverImage: string;
 };

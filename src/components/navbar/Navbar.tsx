@@ -30,7 +30,7 @@ const Navbar = () => {
   const [openDialog, setOpenDialog] = useState(false);
 
   return (
-    <AppBar className='bg-white sticky top-0'>
+    <AppBar className='bg-white sticky top-0 shadow-none border-b'>
       <Toolbar>
         <Typography className='text-blue-600' variant='h6' component='div' sx={{ flexGrow: 1 }}>
           <Link href='/'>Knowledge Academy</Link>

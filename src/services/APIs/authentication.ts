@@ -12,3 +12,16 @@ export const signup = (body: { email: string; password: string }) => {
 export const createStudentAccount = (body: any) => {
   return axios.post(`${API}/create-student`, body).then((res) => res.data);
 };
+
+export const createVerificationCode = (email: string) =>
+  axios
+    .post(`${API}/create-verification-code`, {
+      email,
+    })
+    .then((res) => res.data);
+
+export const sendVerificationCode = (body: { email: string; code: string }) =>
+  axios.post(`${API}/verification-code`, body).then((res) => res.data);
+
+export const resendVerificationCode = (email: string) =>
+  axios.post(`${API}/resend-verification-code`, { email }).then((res) => res.data);

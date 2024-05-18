@@ -1,28 +1,22 @@
+import { getBase64 } from '@/utils';
 import { PlusOutlined } from '@ant-design/icons';
 import { GetProp, Image, Upload, UploadFile, UploadProps } from 'antd';
 import { RcFile } from 'antd/es/upload';
 import { UploadListType } from 'antd/es/upload/interface';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
-
-const getBase64 = (file: FileType): Promise<string> =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = (error) => reject(error);
-  });
 
 export const UploadImage = ({
   getImageFile,
   uploadButtonText = 'اختر صورة الحصة',
   listType = 'picture-card',
+  ...props
 }: {
   uploadButtonText?: React.ReactNode | string;
   listType?: UploadListType | undefined;
   getImageFile: (file: RcFile | Blob | string, fileList?: UploadFile<any>) => void;
-}) => {
+} & UploadProps<any>) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const handlePreview = async (file: UploadFile) => {
@@ -36,8 +30,9 @@ export const UploadImage = ({
 
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
-  const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
+  const handleChange: UploadProps['onChange'] = async ({ fileList: newFileList }) => {
     if (newFileList.length) {
+      newFileList[0].thumbUrl = await getBase64(newFileList[0].originFileObj as FileType);
       setFileList([
         {
           ...newFileList[0],
@@ -54,12 +49,13 @@ export const UploadImage = ({
     </button>
   );
 
+  useEffect(() => {
+    getImageFile && getImageFile(fileList[0]?.originFileObj as FileType, fileList[0]);
+  }, [fileList]);
+
   return (
     <>
       <Upload
-        customRequest={(req) => {
-          getImageFile && getImageFile(req.file, fileList[0]);
-        }}
         maxCount={1}
         listType={listType}
         fileList={fileList}
@@ -67,6 +63,7 @@ export const UploadImage = ({
         onChange={handleChange}
         multiple={false}
         onRemove={() => setFileList([])}
+        {...props}
       >
         {fileList.length >= 1 ? null : uploadButton}
       </Upload>
@@ -74,6 +71,7 @@ export const UploadImage = ({
         <Image
           alt=''
           wrapperStyle={{ display: 'none' }}
+          className='fixed'
           preview={{
             visible: previewOpen,
             onVisibleChange: (visible) => setPreviewOpen(visible),
