@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { uploadCover, uploadThumbnail } from '../APIs';
+import { uploadCover, uploadProfileImage, uploadThumbnail } from '../APIs';
 import { RcFile } from 'antd/es/upload';
 
 export const useUploadThumbnail = () => {
@@ -11,5 +11,11 @@ export const useUploadThumbnail = () => {
 export const useUploadCover = () => {
   return useMutation({
     mutationFn: (imageFile: string | RcFile | Blob) => uploadCover(imageFile),
+  });
+};
+
+export const useUploadProfileImage = () => {
+  return useMutation({
+    mutationFn: (imageFile: string | RcFile | Blob) => uploadProfileImage(imageFile),
   });
 };

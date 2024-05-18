@@ -26,6 +26,18 @@ export const uploadCover = async (imageFile: string | RcFile | Blob) => {
     .then((res) => res.data);
 };
 
+export const uploadProfileImage = async (imageFile: string | RcFile | Blob) => {
+  const data = new FormData();
+  data.append('image-file', imageFile);
+  return axios
+    .post(`${API}/upload-profile-image`, data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    .then((res) => res.data);
+};
+
 export const uploadVideo = async (body: { videoFile: any }) => {
   const data = new FormData();
   data.append('video-file', body.videoFile);

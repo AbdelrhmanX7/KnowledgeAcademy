@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { UploadImage } from '../upload';
-import { getBase64 } from '@/utils';
 import { Button } from '@/UI';
-import { useUploadCover } from '@/services/hooks';
+import { useUploadCover, useUploadProfileImage } from '@/services/hooks';
 import { message } from 'antd';
 import { useUpdateTeacher } from '@/services/hooks/useTeacher';
 import { RcFile } from 'antd/es/upload';
@@ -10,7 +9,7 @@ import { getCookie } from 'cookies-next';
 
 export const UploadTeacherImages = ({ goNextStep }: { goNextStep?: () => void }) => {
   const [images, setImages] = useState<{
-    profileImage: string;
+    profileImage: string | RcFile | Blob;
     coverImage: string | RcFile | Blob;
   }>({
     profileImage: '',
@@ -19,8 +18,9 @@ export const UploadTeacherImages = ({ goNextStep }: { goNextStep?: () => void })
 
   const { mutateAsync: uploadTeacherFn, isPending: isUploadThumbnailPending } = useUpdateTeacher();
   const { mutateAsync: uploadCoverFn, isPending: isUploadCoverPending } = useUploadCover();
+  const { mutateAsync: uploadProfileImageFn, isPending: isUploadProfileImagePending } = useUploadProfileImage();
 
-  const isLoading = isUploadThumbnailPending || isUploadCoverPending;
+  const isLoading = isUploadThumbnailPending || isUploadCoverPending || isUploadProfileImagePending;
 
   const token = getCookie('token');
 
@@ -33,14 +33,11 @@ export const UploadTeacherImages = ({ goNextStep }: { goNextStep?: () => void })
           <UploadImage
             disabled={isLoading}
             className='absolute !w-full !h-full [&_div]:!w-full [&_div]:!h-full'
-            getImageFile={async (req, file) => {
-              if (file?.originFileObj) {
-                const profileImage = await getBase64(file?.originFileObj);
-                setImages({
-                  ...images,
-                  profileImage,
-                });
-              }
+            getImageFile={async (profileImage) => {
+              setImages({
+                ...images,
+                profileImage,
+              });
             }}
             uploadButtonText='أختر صورة الشخصية'
             listType='picture-card'
@@ -73,10 +70,11 @@ export const UploadTeacherImages = ({ goNextStep }: { goNextStep?: () => void })
           }
           try {
             const { coverId } = await uploadCoverFn(images.coverImage);
+            const { profileImageId } = await uploadProfileImageFn(images.profileImage);
             message.success('تم رفع الصور الخلفية بنجاح');
 
             await uploadTeacherFn({
-              profileImage: images.profileImage,
+              profileImage: profileImageId,
               coverImage: coverId,
             });
 

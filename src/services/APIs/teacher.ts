@@ -10,8 +10,15 @@ export const createTeacher = async (data: CreateTeacherType) =>
 export const updateTeacher = async (data: Partial<CreateTeacherType>) =>
   axios.put(`${API}/update-teacher`, data).then((res) => res.data);
 
-export const getTeachers = async ({ studyPhase = '' }: { studyPhase: string }) =>
-  await axios.get(`${API}/get-teachers?studyPhase=${studyPhase}`).then((res) => res.data);
+export const getTeachers = async ({ studyPhase = '' }: { studyPhase: string }) => {
+  return axios.get(`${API}/get-teachers?studyPhase=${studyPhase}`).then((res) => {
+    const teachers = res.data;
+    for (const teacher of teachers) {
+      teacher.profileImage = imageStreamingHandler(teacher?.profileImage[0]?.path ?? '');
+    }
+    return teachers;
+  });
+};
 
 export const getTeacher = async ({ id = '', studyPhase = '' }: { id?: string; studyPhase?: string }) => {
   try {
