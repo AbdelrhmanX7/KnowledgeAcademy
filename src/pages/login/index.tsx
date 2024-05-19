@@ -54,7 +54,7 @@ export default function Login() {
               message.success('تم تسجيل الدخول بنجاح');
               router.push('/');
             } catch (error: any) {
-              message.error(error?.response?.data);
+              message.error(error?.response?.data?.message);
             }
           }}
         >

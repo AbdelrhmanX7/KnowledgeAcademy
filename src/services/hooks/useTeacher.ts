@@ -29,7 +29,7 @@ export const useGetTeacher = ({ id }: { id?: string }) => {
     queryFn: () =>
       getTeacher({
         id,
-        studyPhase: STUDY_PHASES.find((phase) => phase.value === userStudyPhase)?.label,
+        studyPhase: STUDY_PHASES.find((phase) => phase.value === userStudyPhase)?.value,
       }),
     enabled: !!id,
   });

@@ -18,7 +18,7 @@ export default function TeacherId() {
 
   return (
     <div>
-      <div className='relative w-full h-[calc(100vh-64px)] mb-6'>
+      <div className='relative w-full aspect-video mb-6'>
         <Image
           className='absolute -z-10 object-cover object-top'
           alt=''

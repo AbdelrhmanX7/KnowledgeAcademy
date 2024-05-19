@@ -5,6 +5,7 @@ import Button from '../Button';
 import { useGetInvalidateQueries } from '@/services/invalidateQueries';
 import { useBuyLecture } from '@/services/hooks';
 import { useRouter } from 'next/router';
+import { formatVideoDuration } from '@/utils';
 
 export const LectureCard = ({ lecture }: any) => {
   const { mutateAsync: buyLuctureFn } = useBuyLecture();
@@ -59,7 +60,7 @@ export const LectureCard = ({ lecture }: any) => {
         </Button>
       </div>
       <div className='h-[62px] text-[#696969] [&_p]:truncate [&_p]:text-[22px] mt-auto flex justify-between items-center border-t px-3 py-2'>
-        <p>مدة الحصة: {lecture?.video?.duration ?? 'N/A'}</p>
+        <p>مدة الحصة: {formatVideoDuration(lecture?.videoDuration) ?? 'N/A'}</p>
         <p>{lecture?.studyPhase}</p>
       </div>
     </div>

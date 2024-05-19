@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { DeleteOutlined, InboxOutlined } from '@ant-design/icons';
 import type { UploadFile } from 'antd';
 import { message, Progress, Upload } from 'antd';
@@ -23,6 +23,7 @@ export default function UploadPage() {
     description: '',
     price: '0',
     studyPhase: '',
+    videoDuration: 0,
   });
 
   const { mutateAsync: uploadThumbnailFn, isPending: isUploadThumbnailPending } = useUploadThumbnail();
@@ -125,6 +126,7 @@ export default function UploadPage() {
       status: true,
     };
   }
+  const videoEl = useRef<HTMLVideoElement>(null);
 
   return (
     <div className='flex lg:flex-row flex-col items-center justify-evenly p-6 h-fit mt-20'>
@@ -156,7 +158,17 @@ export default function UploadPage() {
           >
             {fileList[0]?.originFileObj ? (
               <div className='absolute w-[calc(100%-2px)] h-[calc(100%-2px)] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] hover:opacity-70 duration-300 rounded-lg overflow-hidden'>
-                <video controlsList='nodownload' controls className='w-full h-full object-fill'>
+                <video
+                  onLoadedMetadata={() => {
+                    if (videoEl?.current) {
+                      setFormState({ ...formState, videoDuration: videoEl.current.duration });
+                    }
+                  }}
+                  ref={videoEl}
+                  controlsList='nodownload'
+                  controls
+                  className='w-full h-full object-fill'
+                >
                   <source src={URL.createObjectURL(fileList[0].originFileObj)} type='video/mp4' />
                 </video>
                 {(fileList[0]?.status === 'uploading' || fileList[0]?.status === 'done') && (
@@ -192,6 +204,7 @@ export default function UploadPage() {
           <Button
             onClick={() => {
               setFileList([]);
+              setFormState({ ...formState, videoDuration: 0 });
             }}
             type='primary'
             icon={<DeleteOutlined />}
