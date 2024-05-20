@@ -109,14 +109,13 @@ export const CreateTeacher = ({ goNextStep }: { goNextStep?: () => void }) => {
                 if (res?.user) {
                   setCookie('token', res?.token);
                   setUserData(res?.user);
-                  await message.success('تم انشاء الحساب بنجاح');
+                  message.success('تم انشاء الحساب بنجاح');
                   goNextStep && goNextStep();
                 } else {
-                  await message.error('حدث خطأ اثناء انشاء الحساب');
+                  message.error('حدث خطأ اثناء انشاء الحساب');
                 }
               } catch (error: any) {
-                console.log(error);
-                await message.error('حدث خطأ اثناء انشاء الحساب');
+                message.error('حدث خطأ اثناء انشاء الحساب');
               }
             }}
             disabled={!submittable || isPending}

@@ -13,28 +13,9 @@ export default function LectureId() {
   const { data } = useGetLecture({ id: query?.id as string });
   return (
     <div>
+      <iframe src='http://192.168.1.2:4000' />
       {data?.videoUrl && (
-        <>
-          <video id='videoPlayer' width='1000' controls>
-            <source src={data.videoUrl} type='video/mp4' />
-          </video>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: `<video controls className="app__backgroundVideo" autoplay loop muted playsinline>
-      <source src=${data.videoUrl} type="video/mp4" />
-      Your browser does not support the video tag.
-</video>`,
-            }}
-          />
-          <ReactPlayer
-            playing
-            muted={false}
-            light={<Image src={data.thumbnailUrl} />}
-            playsinline
-            controls
-            url={data.videoUrl}
-          />
-        </>
+        <ReactPlayer light={<Image src={data.thumbnailUrl} />} playsinline controls url={data.videoUrl} />
       )}
     </div>
   );
