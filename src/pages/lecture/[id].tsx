@@ -18,6 +18,14 @@ export default function LectureId() {
           <video id='videoPlayer' width='1000' controls>
             <source src={data.videoUrl} type='video/mp4' />
           </video>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: `<video controls className="app__backgroundVideo" autoplay loop muted playsinline>
+      <source src=${data.videoUrl} type="video/mp4" />
+      Your browser does not support the video tag.
+</video>`,
+            }}
+          />
           <ReactPlayer
             playing
             muted={false}
