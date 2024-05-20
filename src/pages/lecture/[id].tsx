@@ -1,3 +1,4 @@
+import { API } from '@/services/APIs';
 import { useGetLecture } from '@/services/hooks';
 import { Image } from '@/UI';
 import { useQueryClient } from '@tanstack/react-query';
@@ -13,7 +14,7 @@ export default function LectureId() {
   const { data } = useGetLecture({ id: query?.id as string });
   return (
     <div>
-      <iframe src='http://192.168.1.2:4000' />
+      <iframe src={API} />
       {data?.videoUrl && (
         <ReactPlayer light={<Image src={data.thumbnailUrl} />} playsinline controls url={data.videoUrl} />
       )}

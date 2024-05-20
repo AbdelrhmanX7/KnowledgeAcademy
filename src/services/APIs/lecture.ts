@@ -13,7 +13,7 @@ export const getLecture = async (id: string) => {
   try {
     const authorization = getCookie('token');
     const getRespone = await axios.get(`${API}/lecture?lectureId=${id}`).then((res) => res.data);
-    getRespone.videoUrl = `${API}/video`;
+    getRespone.videoUrl = `${API}/video?videoPath=${getRespone.video.path}&authorization=${authorization}`;
     getRespone.thumbnailUrl = imageStreamingHandler(getRespone?.thumbnail?.path ?? '');
     return getRespone;
   } catch (error: any) {
