@@ -1,4 +1,5 @@
 import { useGetLecture } from '@/services/hooks';
+import { Image } from '@/UI';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
@@ -10,7 +11,6 @@ export default function LectureId() {
   }, []);
   const { query } = useRouter();
   const { data } = useGetLecture({ id: query?.id as string });
-  console.log(data);
   return (
     <div>
       {data?.videoUrl && (
@@ -18,7 +18,14 @@ export default function LectureId() {
           <video id='videoPlayer' width='1000' controls>
             <source src={data.videoUrl} type='video/mp4' />
           </video>
-          <ReactPlayer playsinline controls url={data.videoUrl} />
+          <ReactPlayer
+            playing
+            muted={false}
+            light={<Image src={data.thumbnailUrl} />}
+            playsinline
+            controls
+            url={data.videoUrl}
+          />
         </>
       )}
     </div>
