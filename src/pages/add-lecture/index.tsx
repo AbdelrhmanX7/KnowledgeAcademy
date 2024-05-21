@@ -34,55 +34,58 @@ export default function UploadPage() {
 
   const { mutateAsync, isPending } = useCreateLecture();
 
-  const handleFileUpload = async (selectedFile: any) => {
+  async function newUploadFile(fileInput: RcFile) {
     try {
-      if (!selectedFile) {
-        alert('Please select a file to upload.');
-        return;
-      }
-      let getRespone = {
-        videoId: '',
-        message: '',
-      };
-      const chunkSize = selectedFile.size / 100;
-      for (let i = 0; i < 100; i++) {
-        const start = i * chunkSize;
-        const end = Math.min(selectedFile.size, start + chunkSize);
-        const chunk = selectedFile.slice(start, end);
+      const file = fileInput;
+      if (!file) return;
+      const chunkSize = 1024 * 1024; // 1MB
+      const totalChunks = Math.ceil(file.size / chunkSize);
+      const fileId = `${file.name}-${Date.now()}`;
+      let getRespone: any = {};
+      for (let i = 0; i < totalChunks; i++) {
+        const chunk = file.slice(i * chunkSize, (i + 1) * chunkSize);
         const formData = new FormData();
-        formData.append('video-file', chunk);
-        formData.append('chunkNumber', `${i}`);
-        formData.append('totalChunks', `${100}`);
-        formData.append('originalname', selectedFile.name);
+        formData.append('fileName', file.name);
+        formData.append('fileId', fileId);
+        formData.append('chunkIndex', i.toString());
+        formData.append('totalChunks', totalChunks.toString());
+        formData.append('chunk', chunk);
+        getRespone = await axios.post(`${API}/new-upload-video`, formData).then((response) => response.data);
 
-        getRespone = await axios.post(`${API}/upload-video`, formData).then((res) => res.data);
-
-        setFileList((prev) => {
+        setFileList((prev: any) => {
           return [
             {
               ...prev[0],
               status: 'uploading',
-              percent: Number(i),
+              percent: ((Number(i) / totalChunks) * 100).toFixed(2),
             },
           ];
         });
       }
-      setFileList((prev) => {
+      setFileList((prev: any) => {
         return [
           {
             ...prev[0],
-            status: 'ready',
+            status: 'done',
             percent: 100,
           },
         ];
       });
-
       message.success('تم رفع الفيديو بنجاح');
       return getRespone;
     } catch (error) {
+      console.log(error);
       message.error('حدث خطأ اثناء رفع الفيديو');
+      setFileList((prev: any) => {
+        return [
+          {
+            ...prev[0],
+            status: 'error',
+          },
+        ];
+      });
     }
-  };
+  }
 
   const uploadFile = async (value: any) => {
     try {
@@ -261,7 +264,8 @@ export default function UploadPage() {
               if (!validation()?.status) {
                 return message.error(validation()?.message);
               }
-              const getVideoId = await handleFileUpload(fileList[0]?.originFileObj);
+              if (!fileList[0]?.originFileObj) return message.error('يرجى اختيار ملف الفيديو');
+              const getVideoId = await newUploadFile(fileList[0].originFileObj);
               videoId = getVideoId?.videoId ?? '';
               if (imageFile) {
                 const getThumbnail = await uploadFile(imageFile);
